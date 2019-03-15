@@ -7,6 +7,7 @@
 <script>
   import ECharts from 'vue-echarts'
   import 'echarts'
+  import { formatBytes } from '@/shared'
 
   export default {
     props: ['data'],
@@ -60,7 +61,28 @@
               name: 'cdn',
               data: this.data.map(x => {
                 return [+start.getTime() + x.totals.cdn.time, x.totals.cdn.size]
-              })
+              }),
+              markLine: {
+                silent: true,
+                lineStyle: {
+                  color: '#000',
+                  width: 1,
+                },
+                symbol: 'none',
+                label: {
+                  formatter: (x) => formatBytes(x.value)
+                },
+                data: [
+                  [{
+                    type: 'max',
+                    x: '5%',
+                  },
+                  {
+                    type: 'max',
+                    x: '90%',
+                  }],
+                ],
+              },
             },
             {
               type: 'line',

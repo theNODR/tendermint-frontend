@@ -13,7 +13,7 @@
               <div><svg width="20" height="20" viewBox="0 0 32 32" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M21.3333 21.3333H17.3333V28H14.6667V21.3333H10.6667L16 16L21.3333 21.3333ZM25.972 13.456C25.6893 8.188 21.3413 4 16 4C10.6587 4 6.31067 8.188 6.028 13.456C2.60133 14.0733 0 17.064 0 20.6667C0 24.716 3.284 28 7.33333 28H12V25.3333H7.33333C4.76 25.3333 2.66667 23.24 2.66667 20.6667C2.66667 16.9373 5.972 15.556 8.57733 15.7067C8.35467 10.0827 11.5213 6.66667 16 6.66667C20.604 6.66667 23.8547 10.396 23.4227 15.7067C25.7493 15.6453 29.3333 16.708 29.3333 20.6667C29.3333 23.24 27.24 25.3333 24.6667 25.3333H20V28H24.6667C28.716 28 32 24.716 32 20.6667C32 17.064 29.3987 14.0733 25.972 13.456Z"/></svg></div>
             </div>
             <div class="indicators__item__value">
-              {{tlprt.length > 0 && bytesToSize(tlprt[tlprt.length-1].totals.upload.size)}}
+              {{tlprt.length > 0 && formatBytes(tlprt[tlprt.length-1].totals.upload.size)}}
             </div>
           </div>
           <!-- <div class="indicators__item">
@@ -31,7 +31,7 @@
               <div><svg width="20" height="20" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M8 20H11V15H13V20H16L12 24L8 20ZM19.479 7.092C19.267 3.141 16.006 0 12 0C7.994 0 4.733 3.141 4.521 7.092C1.951 7.555 0 9.798 0 12.5C0 15.537 2.463 18 5.5 18H9V16H5.5C3.57 16 2 14.43 2 12.5C2 9.703 4.479 8.667 6.433 8.78C6.266 4.562 8.641 2 12 2C15.453 2 17.891 4.797 17.567 8.78C19.312 8.734 22 9.531 22 12.5C22 14.43 20.43 16 18.5 16H15V18H18.5C21.537 18 24 15.537 24 12.5C24 9.798 22.049 7.555 19.479 7.092V7.092Z"/></svg></div>
             </div>
             <div class="indicators__item__value">
-              {{tlprt.length > 0 && bytesToSize(tlprt[tlprt.length-1].totals.pdn.size)}}
+              {{tlprt.length > 0 && formatBytes(tlprt[tlprt.length-1].totals.pdn.size)}}
             </div>
           </div>
           <div class="indicators__item">
@@ -40,7 +40,7 @@
               <div><svg width="20" height="20" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M8 20H11V15H13V20H16L12 24L8 20ZM19.479 7.092C19.267 3.141 16.006 0 12 0C7.994 0 4.733 3.141 4.521 7.092C1.951 7.555 0 9.798 0 12.5C0 15.537 2.463 18 5.5 18H9V16H5.5C3.57 16 2 14.43 2 12.5C2 9.703 4.479 8.667 6.433 8.78C6.266 4.562 8.641 2 12 2C15.453 2 17.891 4.797 17.567 8.78C19.312 8.734 22 9.531 22 12.5C22 14.43 20.43 16 18.5 16H15V18H18.5C21.537 18 24 15.537 24 12.5C24 9.798 22.049 7.555 19.479 7.092V7.092Z"/></svg></div>
             </div>
             <div class="indicators__item__value">
-              {{tlprt.length > 0 && bytesToSize(tlprt[tlprt.length-1].totals.cdn.size)}}
+              {{tlprt.length > 0 && formatBytes(tlprt[tlprt.length-1].totals.cdn.size)}}
             </div>
           </div>
         </div>
@@ -90,7 +90,7 @@
     .layout { display: flex; flex-direction: column; }
     .logo { padding: 20px; }
     .pane { margin: 0 20px; }
-    .indicators__item__value { font-size: 1.25rem; font-weight: 400; }
+    .indicators__item__value { font-size: 1rem; font-weight: 400; }
     .table { padding: 1rem 20px; margin: 0; }
     .h1 { margin: 2rem 20px 1rem; }
     .table--thead { margin: 0; padding: .75rem 20px; background-color: #F9FAFB; text-transform: uppercase; font-size: .75rem; color: rgba(0,0,0,.5); letter-spacing: .15em; padding-top: .75rem; padding-bottom: .75rem; }
@@ -101,6 +101,7 @@
 <script>
   import Chart from './Chart'
   import { cloneDeep } from 'lodash'
+  import { formatBytes } from '@/shared'
 
   export default {
     components: { Chart, },
@@ -114,12 +115,7 @@
       this.playerInit()
     },
     methods: {
-      bytesToSize(bytes) {
-        var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-        if (bytes == 0) return '0 Byte';
-        var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-        return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
-      },
+      formatBytes,
       playerInit() {
         let tlprt;
         let STREAM_URL = "https://stream.teleport.media/hls/video.m3u8";
