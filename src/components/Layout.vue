@@ -25,6 +25,24 @@
               Value
             </div>
           </div>
+          <div class="indicators__item">
+            <div class="indicators__item__label">
+              <div>Teleport</div>
+              <div><svg width="24" height="24" viewBox="0 0 28 28" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M14 0C6.2685 0 0 6.2685 0 14C0 21.7315 6.2685 28 14 28C21.7315 28 28 21.7315 28 14C28 6.2685 21.7315 0 14 0ZM23.0452 21.3558C22.7407 20.6722 22.1247 20.1997 20.8623 19.908C18.1872 19.2908 15.6963 18.7495 16.9038 16.4722C20.573 9.53983 17.8757 5.83333 14 5.83333C10.0473 5.83333 7.41533 9.68217 11.0962 16.4722C12.3398 18.7635 9.75683 19.3037 7.13767 19.908C5.873 20.1997 5.26167 20.6757 4.9595 21.3617C3.32033 19.3515 2.33333 16.7895 2.33333 14C2.33333 7.567 7.567 2.33333 14 2.33333C20.433 2.33333 25.6667 7.567 25.6667 14C25.6667 16.7872 24.6808 19.3468 23.0452 21.3558Z"/></svg></div>
+            </div>
+            <div class="indicators__item__value">
+              {{tlprt.length > 0 && bytesToSize(tlprt[tlprt.length-1].totals.pdn.size)}}
+            </div>
+          </div>
+          <div class="indicators__item">
+            <div class="indicators__item__label">
+              <div>CDN</div>
+              <div><svg width="24" height="24" viewBox="0 0 28 28" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M14 0C6.2685 0 0 6.2685 0 14C0 21.7315 6.2685 28 14 28C21.7315 28 28 21.7315 28 14C28 6.2685 21.7315 0 14 0ZM23.0452 21.3558C22.7407 20.6722 22.1247 20.1997 20.8623 19.908C18.1872 19.2908 15.6963 18.7495 16.9038 16.4722C20.573 9.53983 17.8757 5.83333 14 5.83333C10.0473 5.83333 7.41533 9.68217 11.0962 16.4722C12.3398 18.7635 9.75683 19.3037 7.13767 19.908C5.873 20.1997 5.26167 20.6757 4.9595 21.3617C3.32033 19.3515 2.33333 16.7895 2.33333 14C2.33333 7.567 7.567 2.33333 14 2.33333C20.433 2.33333 25.6667 7.567 25.6667 14C25.6667 16.7872 24.6808 19.3468 23.0452 21.3558Z"/></svg></div>
+            </div>
+            <div class="indicators__item__value">
+              {{tlprt.length > 0 && bytesToSize(tlprt[tlprt.length-1].totals.cdn.size)}}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -56,8 +74,8 @@
   .logo { padding: 20px 50px; display: flex; justify-content: flex-start; }
   .pane { box-shadow: 0px 4px 16px rgba(48, 80, 109, 0.15); border-radius: 0 0 10px 10px; margin: 0 50px; }
   .indicators { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 4px; }
-  .indicators__item { padding: 20px; }
-  .indicators__item__label { display: flex; align-items: center; justify-content: space-between; opacity: .5; }
+  .indicators__item { padding: 10px 20px; }
+  .indicators__item__label { display: flex; align-items: center; justify-content: space-between; opacity: .5; text-transform: uppercase; font-size: .75rem; color: rgba(0,0,0,.75); }
   .indicators__item__value { font-size: 1.5rem; font-weight: 400; }
   .h1 { font-size: 1.5rem; font-weight: 700; margin: 2rem 50px 1rem; }
   .table { display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 1.25rem 0; margin: 0 50px; box-shadow: 0px 1px 0px rgba(147, 174, 214, 0.4); }
@@ -94,7 +112,7 @@
       playerInit() {
         let tlprt;
         let STREAM_URL = "https://stream.teleport.media/hls/video.m3u8";
-        let API_KEY = "f1e5a1b0bb7754ee";
+        let API_KEY = "837018accbcba44f";
         let initApp = () => {
           let hls = new Hls();
           let video = document.getElementById('video');
@@ -125,6 +143,7 @@
           .catch(onError);
           setInterval(() => {
             this.tlprt = [...this.tlprt, tlprt.getStatDetails()]
+            console.log(tlprt)
           }, 1000)
         }
         function onError(error) {
