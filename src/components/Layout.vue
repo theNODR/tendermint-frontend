@@ -117,8 +117,10 @@
     created() {
       this.playerInit()
       console.log(document.domain)
-      axios.get('https://api.teleport.media/demo/peerconnectionstat?apiKey=9c2fb9240c5a4e2c')
-        .then(x => console.log(x))
+      setInterval(() => {
+        axios.get('https://api.teleport.media/demo/peerconnectionstat?apiKey=9c2fb9240c5a4e2c')
+          .then(x => console.log(x))
+      }, 1000)
     },
     methods: {
       formatBytes,
