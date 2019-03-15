@@ -116,6 +116,7 @@
     },
     created() {
       this.playerInit()
+      console.log(document.domain)
       axios.get('https://api.teleport.media/demo/peerconnectionstat?apiKey=837018accbcba44f')
         .then(x => console.log(x))
     },
@@ -124,7 +125,7 @@
       playerInit() {
         let tlprt;
         let STREAM_URL = "https://stream.teleport.media/hls/video.m3u8";
-        let API_KEY = "ab080b6321053d5c";
+        let API_KEY = "837018accbcba44f";
         let initApp = () => {
           let hls = new Hls();
           let video = document.getElementById('video');
