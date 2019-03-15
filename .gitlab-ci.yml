@@ -1,0 +1,49 @@
+stages:
+    - compile
+    - build
+    - deploy
+    
+variables:
+    CI_NODE_IMAGE: "node:11"
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://localhost:2375
+    GIT_SUBMODULE_STRATEGY: recursive
+
+compile:
+    stage: compile
+    image: "$CI_NODE_IMAGE"
+    script:
+         - sh ./deploy/ci/01_compile.sh
+    artifacts:
+        paths:
+            - dist/
+
+build:
+    stage: build
+    image: docker:git
+    services:
+         - docker:dind
+    script:
+         - sh ./deploy/ci/02_build.sh
+
+deploy-dev:
+    stage: deploy
+    image: docker.tlprt.cloud/teleport.media/devops/kubectl:master
+    services:
+    - docker:dind
+    script:
+    - export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config_dev && kubectl --insecure-skip-tls-verify --namespace=blockchain get pods | grep 'demo-nodr-' | awk '{print $1}'| xargs -I {} -t kubectl --insecure-skip-tls-verify --namespace=blockchain delete pods {}
+    only:
+    - dev
+
+deploy-prod:
+    stage: deploy
+    image: docker.tlprt.cloud/teleport.media/devops/kubectl:master
+    services:
+    - docker:dind
+    script:
+    - export KUBECONFIG=$HOME/.kube/config_prod && kubectl --namespace=blockchain set image deployments.apps/demo-nodr *=docker.tlprt.cloud/teleport.media/nodr.demo:$CI_COMMIT_TAG
+    only:
+    - /^v\d+\.\d+\.\d+$/
+    dependencies:
+    - build
