@@ -6,7 +6,7 @@
         <svg height="25" viewBox="0 0 155 32" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M147.522 31.6504L140.934 21.7008H136.82V31.6504H130.662V0.349548H140.154C144.027 0.349548 147.038 1.29072 149.19 3.17308C151.341 5.05543 152.39 7.63694 152.39 10.8907C152.39 12.8269 151.986 14.6285 151.18 16.3227C150.373 18.0168 149.136 19.3344 147.469 20.3025L154.729 31.6504H147.522ZM136.793 15.7311H141.176C142.843 15.7311 144.08 15.247 144.833 14.2521C145.586 13.284 145.99 12.2084 145.99 11.079C145.99 9.94955 145.667 8.87392 145.022 7.82518C144.376 6.77644 143.112 6.26551 141.23 6.26551H136.82V15.7311H136.793Z"/> <path d="M6.23865 31.758L6.1042 13.1765L25.358 31.758H28.1815V0.457153H21.9697L22.1042 19.3882L2.82353 0.457153H0V31.758H1.88235H6.23865Z"/> <path d="M115.172 8.65879C113.989 6.21173 112.107 4.19492 109.525 2.66215C106.944 1.12937 103.663 0.349548 99.6563 0.349548H87.3403V6.26551H90.2983V25.7075H87.3403V31.6235L101.189 31.6773C104.066 31.6773 106.675 31.0588 109.068 29.8218C111.461 28.5848 113.371 26.81 114.796 24.5243C116.221 22.2386 116.92 19.5764 116.92 16.5647C116.947 13.7411 116.355 11.1058 115.172 8.65879ZM107.75 23.2067C105.868 24.847 103.34 25.6806 100.14 25.6806H96.4832V6.23862H101.512C102.722 6.23862 104.039 6.53442 105.411 7.09912C106.782 7.66383 107.992 8.68568 109.014 10.1647C110.036 11.6437 110.574 13.6336 110.574 16.1075C110.574 19.2 109.633 21.5664 107.75 23.2067Z"/> <path d="M58.1902 32C67.0267 32 74.1902 24.8366 74.1902 16C74.1902 7.16344 67.0267 0 58.1902 0C49.3536 0 42.1902 7.16344 42.1902 16C42.1902 24.8366 49.3536 32 58.1902 32Z"/> </svg>
       </div>
       <div class="pane">
-        <video id="video" controls autoplay="autoplay" style="width: 100%;"></video>
+        <video id="video" autoplay controls muted style="width: 100%;"></video>
         <div class="indicators">
           <div class="indicators__item indicators__item--highlight">
             <div class="indicators__item__label">
@@ -59,15 +59,10 @@
         <div class="th">Upload</div>
         <div class="th">Tokens</div>
       </div>
-      <div class="table">
-        <div class="td">asldkjl3</div>
-        <div class="td">23 MB</div>
-        <div class="td">2.3 t</div>
-      </div>
-      <div class="table">
-        <div class="td">xcmkl2xc</div>
-        <div class="td">430 MB</div>
-        <div class="td">5.3 t</div>
+      <div class="table" v-for="peer in nodeTable" :key="peer.connection_id">
+        <div class="td">{{peer.connection_id.slice(0,6)}}</div>
+        <div class="td">{{formatBytes(peer.pdn_size)}}</div>
+        <div class="td">{{(peer.pdn_size/500000).toFixed(2)}}</div>
       </div>
     </div>
   </div>
@@ -82,7 +77,7 @@
   .indicators__item__label { display: flex; align-items: center; justify-content: flex-start; opacity: .5; text-transform: uppercase; font-size: .75rem; color: rgba(0,0,0,.75); }
   .indicators__item__value { font-size: 1.5rem; font-weight: 400; }
   .h1 { font-size: 1.5rem; font-weight: 700; margin: 4rem 50px 1rem; }
-  .table { display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 1.25rem 0; margin: 0 50px; box-shadow: 0px 1px 0px rgba(147, 174, 214, 0.4); }
+  .table { display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 1.25rem 0; margin: 0 50px; box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2); }
   .table--thead { background-color: none; text-transform: uppercase; font-size: .75rem; color: rgba(0,0,0,.5); letter-spacing: .15em; padding-top: .75rem; padding-bottom: .75rem; }
   .td { font-size: 1.25rem; }
   .chart { margin: 0 50px; }
@@ -102,7 +97,7 @@
 
 <script>
   import Chart from './Chart'
-  import { cloneDeep } from 'lodash'
+  import { cloneDeep, groupBy, map, sortBy, reverse, } from 'lodash'
   import axios from 'axios'
   import { formatBytes } from '@/shared'
 
@@ -112,6 +107,7 @@
       return {
         tlprt: [],
         connectionId: null,
+        peerList: null,
       }
     },
     created() {
@@ -119,11 +115,23 @@
       console.log(document.domain)
       setInterval(() => {
         axios.get('https://api.teleport.media/demo/peerconnectionstat?apiKey=9c2fb9240c5a4e2c')
-          .then(x => console.log(x))
+          .then(data => this.peerList = data.result)
       }, 1000)
+    },
+    computed: {
+      nodeTable() {
+        return reverse(sortBy(map(groupBy(this.peerList, 'connection_id'), (k,v) => {
+          return {
+            connection_id: v,
+            pdn_size: k.reduce((acc, val) => +acc + +val.pdn_size, 0)
+          }
+        }), 'pdn_size'))
+      },
     },
     methods: {
       formatBytes,
+      groupBy,
+      map,
       playerInit() {
         let tlprt;
         let STREAM_URL = "https://stream.teleport.media/hls/video.m3u8";
