@@ -114,8 +114,7 @@
       this.playerInit()
       setInterval(() => {
         axios.get('https://api.teleport.media/demo/peerconnectionstat?apiKey=9c2fb9240c5a4e2c')
-          .then(data => {
-            console.log(data)
+          .then(({data}) => {
             this.peerList = data.result
           })
       }, 1000)
