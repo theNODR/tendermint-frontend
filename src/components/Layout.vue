@@ -112,10 +112,12 @@
     },
     created() {
       this.playerInit()
-      console.log(document.domain)
       setInterval(() => {
         axios.get('https://api.teleport.media/demo/peerconnectionstat?apiKey=9c2fb9240c5a4e2c')
-          .then(data => this.peerList = data.result)
+          .then(data => {
+            console.log(data)
+            this.peerList = data.result
+          })
       }, 1000)
     },
     computed: {
@@ -168,7 +170,6 @@
           setInterval(() => {
             this.tlprt.push(cloneDeep(tlprt.getStatDetails()))
             this.connectionId = tlprt.connectionId
-            console.log(tlprt)
           }, 1000)
         }
         function onError(error) {
