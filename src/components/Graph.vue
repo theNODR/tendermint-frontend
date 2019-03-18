@@ -30,7 +30,8 @@
                 return {
                   ...node,
                   lineStyle: {
-                    opacity: +node.value / totalTraffic
+                    // color: '#000',
+                    opacity: 1,//+node.value / totalTraffic
                   },
                 }
               }),

@@ -8,47 +8,56 @@
       <div class="pane">
         <video id="video" autoplay controls muted style="width: 100%;"></video>
         <div class="indicators">
-          <div class="indicators__item indicators__item--highlight">
+          <div class="indicators__item">
+            <div class="indicators__item__label">
+              <div style="margin-right: 10px;">Download</div>
+              <div><svg width="20" height="20" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M8 20H11V15H13V20H16L12 24L8 20ZM19.479 7.092C19.267 3.141 16.006 0 12 0C7.994 0 4.733 3.141 4.521 7.092C1.951 7.555 0 9.798 0 12.5C0 15.537 2.463 18 5.5 18H9V16H5.5C3.57 16 2 14.43 2 12.5C2 9.703 4.479 8.667 6.433 8.78C6.266 4.562 8.641 2 12 2C15.453 2 17.891 4.797 17.567 8.78C19.312 8.734 22 9.531 22 12.5C22 14.43 20.43 16 18.5 16H15V18H18.5C21.537 18 24 15.537 24 12.5C24 9.798 22.049 7.555 19.479 7.092V7.092Z"/></svg></div>
+            </div>
+            <div class="indicators__item__value">
+              {{statDetails.length > 0 && formatBytes(statDetails[statDetails.length-1].totals.pdn.size + statDetails[statDetails.length-1].totals.cdn.size)}}
+            </div>
+          </div>
+          <div class="indicators__item">
             <div class="indicators__item__label">
               <div style="margin-right: 10px;">Upload</div>
               <div><svg width="20" height="20" viewBox="0 0 32 32" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M21.3333 21.3333H17.3333V28H14.6667V21.3333H10.6667L16 16L21.3333 21.3333ZM25.972 13.456C25.6893 8.188 21.3413 4 16 4C10.6587 4 6.31067 8.188 6.028 13.456C2.60133 14.0733 0 17.064 0 20.6667C0 24.716 3.284 28 7.33333 28H12V25.3333H7.33333C4.76 25.3333 2.66667 23.24 2.66667 20.6667C2.66667 16.9373 5.972 15.556 8.57733 15.7067C8.35467 10.0827 11.5213 6.66667 16 6.66667C20.604 6.66667 23.8547 10.396 23.4227 15.7067C25.7493 15.6453 29.3333 16.708 29.3333 20.6667C29.3333 23.24 27.24 25.3333 24.6667 25.3333H20V28H24.6667C28.716 28 32 24.716 32 20.6667C32 17.064 29.3987 14.0733 25.972 13.456Z"/></svg></div>
             </div>
             <div class="indicators__item__value">
-              {{tlprt.length > 0 && formatBytes(tlprt[tlprt.length-1].totals.upload.size)}}
+              {{statDetails.length > 0 && formatBytes(statDetails[statDetails.length-1].totals.upload.size)}}
             </div>
           </div>
-          <!-- <div class="indicators__item">
+          <div class="indicators__item">
             <div class="indicators__item__label">
-              <div>My ID</div>
+              <div style="margin-right: 10px;">Your user ID</div>
               <div><svg width="24" height="24" viewBox="0 0 28 28" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M14 0C6.2685 0 0 6.2685 0 14C0 21.7315 6.2685 28 14 28C21.7315 28 28 21.7315 28 14C28 6.2685 21.7315 0 14 0ZM23.0452 21.3558C22.7407 20.6722 22.1247 20.1997 20.8623 19.908C18.1872 19.2908 15.6963 18.7495 16.9038 16.4722C20.573 9.53983 17.8757 5.83333 14 5.83333C10.0473 5.83333 7.41533 9.68217 11.0962 16.4722C12.3398 18.7635 9.75683 19.3037 7.13767 19.908C5.873 20.1997 5.26167 20.6757 4.9595 21.3617C3.32033 19.3515 2.33333 16.7895 2.33333 14C2.33333 7.567 7.567 2.33333 14 2.33333C20.433 2.33333 25.6667 7.567 25.6667 14C25.6667 16.7872 24.6808 19.3468 23.0452 21.3558Z"/></svg></div>
             </div>
             <div class="indicators__item__value">
-              {{connectionId && connectionId.slice(0,8)}}
+              {{tlprt && tlprt.connectionId.slice(0,6)}}
             </div>
-          </div> -->
-          <div class="indicators__item">
+          </div>
+          <!-- <div class="indicators__item">
             <div class="indicators__item__label">
               <div style="margin-right: 10px;">Teleport</div>
               <div><svg width="20" height="20" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M8 20H11V15H13V20H16L12 24L8 20ZM19.479 7.092C19.267 3.141 16.006 0 12 0C7.994 0 4.733 3.141 4.521 7.092C1.951 7.555 0 9.798 0 12.5C0 15.537 2.463 18 5.5 18H9V16H5.5C3.57 16 2 14.43 2 12.5C2 9.703 4.479 8.667 6.433 8.78C6.266 4.562 8.641 2 12 2C15.453 2 17.891 4.797 17.567 8.78C19.312 8.734 22 9.531 22 12.5C22 14.43 20.43 16 18.5 16H15V18H18.5C21.537 18 24 15.537 24 12.5C24 9.798 22.049 7.555 19.479 7.092V7.092Z"/></svg></div>
             </div>
             <div class="indicators__item__value">
-              {{tlprt.length > 0 && formatBytes(tlprt[tlprt.length-1].totals.pdn.size)}}
+              {{statDetails.length > 0 && formatBytes(statDetails[statDetails.length-1].totals.pdn.size)}}
             </div>
-          </div>
-          <div class="indicators__item">
+          </div> -->
+          <!-- <div class="indicators__item">
             <div class="indicators__item__label">
               <div style="margin-right: 10px;">CDN</div>
               <div><svg width="20" height="20" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M8 20H11V15H13V20H16L12 24L8 20ZM19.479 7.092C19.267 3.141 16.006 0 12 0C7.994 0 4.733 3.141 4.521 7.092C1.951 7.555 0 9.798 0 12.5C0 15.537 2.463 18 5.5 18H9V16H5.5C3.57 16 2 14.43 2 12.5C2 9.703 4.479 8.667 6.433 8.78C6.266 4.562 8.641 2 12 2C15.453 2 17.891 4.797 17.567 8.78C19.312 8.734 22 9.531 22 12.5C22 14.43 20.43 16 18.5 16H15V18H18.5C21.537 18 24 15.537 24 12.5C24 9.798 22.049 7.555 19.479 7.092V7.092Z"/></svg></div>
             </div>
             <div class="indicators__item__value">
-              {{tlprt.length > 0 && formatBytes(tlprt[tlprt.length-1].totals.cdn.size)}}
+              {{statDetails.length > 0 && formatBytes(statDetails[statDetails.length-1].totals.cdn.size)}}
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
-      <div class="chart">
-        <chart :data="tlprt"/>
-      </div>
+      <!-- <div class="chart">
+        <chart :data="statDetails"/>
+      </div> -->
     </div>
     <div class="node-list">
       <div class="h1">Node Rating</div>
@@ -109,9 +118,10 @@
     components: { Chart, Graph, },
     data: function() {
       return {
-        tlprt: [],
+        statDetails: [],
+        tlprt: null,
         connectionId: null,
-        peerList: null,//[{"connection_id":"930ac62dfb326580","target_id":"38d15d02dc33cf5a","pdn_size":"16279672"},{"connection_id":"91b5e1957d184ca4","target_id":"38d15d02dc33cf5a","pdn_size":"9159736"},{"connection_id":"53ee982288bc3055","target_id":"38d15d02dc33cf5a","pdn_size":"5787204"},{"connection_id":"53ee982288bc3055","target_id":"930ac62dfb326580","pdn_size":"4429656"},{"connection_id":"53ee982288bc3055","target_id":"91b5e1957d184ca4","pdn_size":"3368208"},{"connection_id":"91b5e1957d184ca4","target_id":"930ac62dfb326580","pdn_size":"2989576"},{"connection_id":"38d15d02dc33cf5a","target_id":"930ac62dfb326580","pdn_size":"2862488"},{"connection_id":"91b5e1957d184ca4","target_id":"53ee982288bc3055","pdn_size":"2287208"},{"connection_id":"930ac62dfb326580","target_id":"91b5e1957d184ca4","pdn_size":"2105036"},{"connection_id":"930ac62dfb326580","target_id":"53ee982288bc3055","pdn_size":"1382176"},{"connection_id":"38d15d02dc33cf5a","target_id":"91b5e1957d184ca4","pdn_size":"1297012"},{"connection_id":"eec350b115ea3916","target_id":"91b5e1957d184ca4","pdn_size":"1197372"},{"connection_id":"eec350b115ea3916","target_id":"930ac62dfb326580","pdn_size":"836600"},{"connection_id":"b83526f9dc6e25c9","target_id":"930ac62dfb326580","pdn_size":"626416"},{"connection_id":"b83526f9dc6e25c9","target_id":"53ee982288bc3055","pdn_size":"608368"},{"connection_id":"eec350b115ea3916","target_id":"38d15d02dc33cf5a","pdn_size":"403260"},{"connection_id":"38d15d02dc33cf5a","target_id":"53ee982288bc3055","pdn_size":"376940"}],
+        peerList: [{"connection_id":"930ac62dfb326580","target_id":"38d15d02dc33cf5a","pdn_size":"16279672"},{"connection_id":"91b5e1957d184ca4","target_id":"38d15d02dc33cf5a","pdn_size":"9159736"},{"connection_id":"53ee982288bc3055","target_id":"38d15d02dc33cf5a","pdn_size":"5787204"},{"connection_id":"53ee982288bc3055","target_id":"930ac62dfb326580","pdn_size":"4429656"},{"connection_id":"53ee982288bc3055","target_id":"91b5e1957d184ca4","pdn_size":"3368208"},{"connection_id":"91b5e1957d184ca4","target_id":"930ac62dfb326580","pdn_size":"2989576"},{"connection_id":"38d15d02dc33cf5a","target_id":"930ac62dfb326580","pdn_size":"2862488"},{"connection_id":"91b5e1957d184ca4","target_id":"53ee982288bc3055","pdn_size":"2287208"},{"connection_id":"930ac62dfb326580","target_id":"91b5e1957d184ca4","pdn_size":"2105036"},{"connection_id":"930ac62dfb326580","target_id":"53ee982288bc3055","pdn_size":"1382176"},{"connection_id":"38d15d02dc33cf5a","target_id":"91b5e1957d184ca4","pdn_size":"1297012"},{"connection_id":"eec350b115ea3916","target_id":"91b5e1957d184ca4","pdn_size":"1197372"},{"connection_id":"eec350b115ea3916","target_id":"930ac62dfb326580","pdn_size":"836600"},{"connection_id":"b83526f9dc6e25c9","target_id":"930ac62dfb326580","pdn_size":"626416"},{"connection_id":"b83526f9dc6e25c9","target_id":"53ee982288bc3055","pdn_size":"608368"},{"connection_id":"eec350b115ea3916","target_id":"38d15d02dc33cf5a","pdn_size":"403260"},{"connection_id":"38d15d02dc33cf5a","target_id":"53ee982288bc3055","pdn_size":"376940"}],
       }
     },
     created() {
@@ -121,7 +131,7 @@
           .then(({data}) => {
             if (!isEqual(this.peerList, data.result)) {
               console.log('changing peer list')
-              this.peerList = data.result
+              // this.peerList = data.result
             }
           })
       }, 1000)
@@ -183,8 +193,9 @@
           })
           .catch(onError);
           setInterval(() => {
-            this.tlprt.push(cloneDeep(tlprt.getStatDetails()))
+            this.statDetails.push(cloneDeep(tlprt.getStatDetails()))
             this.connectionId = tlprt.connectionId
+            this.tlprt = tlprt
           }, 1000)
         }
         function onError(error) {
