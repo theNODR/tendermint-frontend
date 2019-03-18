@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <div class="account">Account</div>
+    <!-- <div class="account">Account</div> -->
     <div class="user-profile">
       <div class="logo">
         <svg height="25" viewBox="0 0 155 32" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M147.522 31.6504L140.934 21.7008H136.82V31.6504H130.662V0.349548H140.154C144.027 0.349548 147.038 1.29072 149.19 3.17308C151.341 5.05543 152.39 7.63694 152.39 10.8907C152.39 12.8269 151.986 14.6285 151.18 16.3227C150.373 18.0168 149.136 19.3344 147.469 20.3025L154.729 31.6504H147.522ZM136.793 15.7311H141.176C142.843 15.7311 144.08 15.247 144.833 14.2521C145.586 13.284 145.99 12.2084 145.99 11.079C145.99 9.94955 145.667 8.87392 145.022 7.82518C144.376 6.77644 143.112 6.26551 141.23 6.26551H136.82V15.7311H136.793Z"/> <path d="M6.23865 31.758L6.1042 13.1765L25.358 31.758H28.1815V0.457153H21.9697L22.1042 19.3882L2.82353 0.457153H0V31.758H1.88235H6.23865Z"/> <path d="M115.172 8.65879C113.989 6.21173 112.107 4.19492 109.525 2.66215C106.944 1.12937 103.663 0.349548 99.6563 0.349548H87.3403V6.26551H90.2983V25.7075H87.3403V31.6235L101.189 31.6773C104.066 31.6773 106.675 31.0588 109.068 29.8218C111.461 28.5848 113.371 26.81 114.796 24.5243C116.221 22.2386 116.92 19.5764 116.92 16.5647C116.947 13.7411 116.355 11.1058 115.172 8.65879ZM107.75 23.2067C105.868 24.847 103.34 25.6806 100.14 25.6806H96.4832V6.23862H101.512C102.722 6.23862 104.039 6.53442 105.411 7.09912C106.782 7.66383 107.992 8.68568 109.014 10.1647C110.036 11.6437 110.574 13.6336 110.574 16.1075C110.574 19.2 109.633 21.5664 107.75 23.2067Z"/> <path d="M58.1902 32C67.0267 32 74.1902 24.8366 74.1902 16C74.1902 7.16344 67.0267 0 58.1902 0C49.3536 0 42.1902 7.16344 42.1902 16C42.1902 24.8366 49.3536 32 58.1902 32Z"/> </svg>
@@ -51,10 +51,10 @@
       </div>
     </div>
     <div class="node-list">
-      <div class="h1">
-        Node Rating
+      <div class="h1">Node Rating</div>
+      <div style="margin: 20px 50px;">
+        <graph :data="nodeTable" :edges="graphTable"/>
       </div>
-      <graph :data="nodeTable" :edges="graphTable"/>
       <div class="table table--thead">
         <div class="th">User</div>
         <div class="th">Upload</div>
@@ -111,7 +111,7 @@
       return {
         tlprt: [],
         connectionId: null,
-        peerList: null, //[{"connection_id":"930ac62dfb326580","target_id":"38d15d02dc33cf5a","pdn_size":"16279672"},{"connection_id":"91b5e1957d184ca4","target_id":"38d15d02dc33cf5a","pdn_size":"9159736"},{"connection_id":"53ee982288bc3055","target_id":"38d15d02dc33cf5a","pdn_size":"5787204"},{"connection_id":"53ee982288bc3055","target_id":"930ac62dfb326580","pdn_size":"4429656"},{"connection_id":"53ee982288bc3055","target_id":"91b5e1957d184ca4","pdn_size":"3368208"},{"connection_id":"91b5e1957d184ca4","target_id":"930ac62dfb326580","pdn_size":"2989576"},{"connection_id":"38d15d02dc33cf5a","target_id":"930ac62dfb326580","pdn_size":"2862488"},{"connection_id":"91b5e1957d184ca4","target_id":"53ee982288bc3055","pdn_size":"2287208"},{"connection_id":"930ac62dfb326580","target_id":"91b5e1957d184ca4","pdn_size":"2105036"},{"connection_id":"930ac62dfb326580","target_id":"53ee982288bc3055","pdn_size":"1382176"},{"connection_id":"38d15d02dc33cf5a","target_id":"91b5e1957d184ca4","pdn_size":"1297012"},{"connection_id":"eec350b115ea3916","target_id":"91b5e1957d184ca4","pdn_size":"1197372"},{"connection_id":"eec350b115ea3916","target_id":"930ac62dfb326580","pdn_size":"836600"},{"connection_id":"b83526f9dc6e25c9","target_id":"930ac62dfb326580","pdn_size":"626416"},{"connection_id":"b83526f9dc6e25c9","target_id":"53ee982288bc3055","pdn_size":"608368"},{"connection_id":"eec350b115ea3916","target_id":"38d15d02dc33cf5a","pdn_size":"403260"},{"connection_id":"38d15d02dc33cf5a","target_id":"53ee982288bc3055","pdn_size":"376940"}],
+        peerList: [{"connection_id":"930ac62dfb326580","target_id":"38d15d02dc33cf5a","pdn_size":"16279672"},{"connection_id":"91b5e1957d184ca4","target_id":"38d15d02dc33cf5a","pdn_size":"9159736"},{"connection_id":"53ee982288bc3055","target_id":"38d15d02dc33cf5a","pdn_size":"5787204"},{"connection_id":"53ee982288bc3055","target_id":"930ac62dfb326580","pdn_size":"4429656"},{"connection_id":"53ee982288bc3055","target_id":"91b5e1957d184ca4","pdn_size":"3368208"},{"connection_id":"91b5e1957d184ca4","target_id":"930ac62dfb326580","pdn_size":"2989576"},{"connection_id":"38d15d02dc33cf5a","target_id":"930ac62dfb326580","pdn_size":"2862488"},{"connection_id":"91b5e1957d184ca4","target_id":"53ee982288bc3055","pdn_size":"2287208"},{"connection_id":"930ac62dfb326580","target_id":"91b5e1957d184ca4","pdn_size":"2105036"},{"connection_id":"930ac62dfb326580","target_id":"53ee982288bc3055","pdn_size":"1382176"},{"connection_id":"38d15d02dc33cf5a","target_id":"91b5e1957d184ca4","pdn_size":"1297012"},{"connection_id":"eec350b115ea3916","target_id":"91b5e1957d184ca4","pdn_size":"1197372"},{"connection_id":"eec350b115ea3916","target_id":"930ac62dfb326580","pdn_size":"836600"},{"connection_id":"b83526f9dc6e25c9","target_id":"930ac62dfb326580","pdn_size":"626416"},{"connection_id":"b83526f9dc6e25c9","target_id":"53ee982288bc3055","pdn_size":"608368"},{"connection_id":"eec350b115ea3916","target_id":"38d15d02dc33cf5a","pdn_size":"403260"},{"connection_id":"38d15d02dc33cf5a","target_id":"53ee982288bc3055","pdn_size":"376940"}],
       }
     },
     created() {
@@ -121,7 +121,7 @@
           .then(({data}) => {
             if (!isEqual(this.peerList, data.result)) {
               console.log('changing peer list')
-              this.peerList = data.result
+              // this.peerList = data.result
             }
           })
       }, 1000)

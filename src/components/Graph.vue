@@ -1,6 +1,6 @@
 <template>
   <div>
-    <chart :options="options" style="width: 100%; height: 100px;"/>
+    <chart :options="options" style="width: 100%; height: 150px; background: #eee;"/>
   </div>
 </template>
 
@@ -20,9 +20,9 @@
           series: [
             {
               type: 'graph',
-              grid: {
-                height: '50px',
-              },
+              // grid: {
+              //   height: '50px',
+              // },
               layout: 'force',
               roam: true,
               data: map(this.data, node => ({id: node.connection_id})),
