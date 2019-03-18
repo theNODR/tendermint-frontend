@@ -130,7 +130,6 @@
         axios.get(`https://api.teleport.media/demo/peerconnectionstat?apiKey=${KEY_TOKEN}`)
           .then(({data}) => {
             if (!isEqual(this.peerList, data.result)) {
-              console.log('changing peer list')
               this.peerList = data.result
             }
           })
