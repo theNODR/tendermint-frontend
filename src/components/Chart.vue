@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="border: 1px solid #ccc; margin: 50px 0; border-radius: 10px;">
     <chart :options="options" style="width: 100%; height: 300px;"/>
   </div>
 </template>
@@ -19,7 +19,7 @@
           grid: {
             // left: '5%',
             // right: '5%',
-            show: true,
+            show: false,
             containLabel: false,
             borderColor: '#aaa',
           },
