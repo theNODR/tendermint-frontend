@@ -99,7 +99,7 @@
 <script>
   import Chart from './Chart'
   import Graph from './Graph'
-  import { cloneDeep, groupBy, map, sortBy, reverse, } from 'lodash'
+  import { cloneDeep, groupBy, map, sortBy, reverse, isEqual, } from 'lodash'
   import axios from 'axios'
   import { formatBytes } from '@/shared'
 
@@ -119,7 +119,7 @@
       setInterval(() => {
         axios.get(`https://api.teleport.media/demo/peerconnectionstat?apiKey=${KEY_TOKEN}`)
           .then(({data}) => {
-            if (this.peerList != data.result) {
+            if (!isEqual(this.peerList, data.result)) {
               console.log('changing peer list')
               this.peerList = data.result
             }
