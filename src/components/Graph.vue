@@ -20,6 +20,9 @@
           series: [
             {
               type: 'graph',
+              grid: {
+                height: '50px',
+              },
               layout: 'force',
               roam: true,
               data: map(this.data, node => ({id: node.connection_id})),
