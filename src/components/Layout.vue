@@ -119,7 +119,10 @@
       setInterval(() => {
         axios.get(`https://api.teleport.media/demo/peerconnectionstat?apiKey=${KEY_TOKEN}`)
           .then(({data}) => {
-            this.peerList = data.result
+            if (this.peerList != data.result) {
+              console.log('changing peer list')
+              this.peerList = data.result
+            }
           })
       }, 1000)
     },
