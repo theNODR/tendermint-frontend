@@ -17,13 +17,26 @@
         let start = new Date()
         return {
           grid: {
-            left: '5%',
-            right: '5%',
+            // left: '5%',
+            // right: '5%',
+            show: true,
+            containLabel: false,
+            borderColor: '#aaa',
           },
           xAxis: {
             type: 'time',
             splitLine: {
               show: false,
+            },
+            axisLine: {
+              lineStyle: {
+                color: '#aaa',
+              },
+            },
+            axisLabel: {
+              showMinLabel: true,
+              showMaxLabel: true,
+              color: '#aaa',
             },
           },
           yAxis: [
@@ -55,34 +68,34 @@
               },
               areaStyle: {
                 color: '#007df7',
-                opacity: 0,
+                opacity: .1,
               },
               // step: 'middle',
               name: 'cdn',
               data: this.data.map(x => {
                 return [+start.getTime() + x.totals.cdn.time, x.totals.cdn.size]
               }),
-              markLine: {
-                silent: true,
-                lineStyle: {
-                  color: '#000',
-                  width: 1,
-                },
-                symbol: 'none',
-                label: {
-                  formatter: (x) => formatBytes(x.value)
-                },
-                data: [
-                  [{
-                    type: 'max',
-                    x: '5%',
-                  },
-                  {
-                    type: 'max',
-                    x: '90%',
-                  }],
-                ],
-              },
+              // markLine: {
+              //   silent: true,
+              //   lineStyle: {
+              //     color: '#000',
+              //     width: 1,
+              //   },
+              //   symbol: 'none',
+              //   label: {
+              //     formatter: (x) => formatBytes(x.value)
+              //   },
+              //   data: [
+              //     [{
+              //       type: 'max',
+              //       x: '5%',
+              //     },
+              //     {
+              //       type: 'max',
+              //       x: '90%',
+              //     }],
+              //   ],
+              // },
             },
             {
               type: 'line',
