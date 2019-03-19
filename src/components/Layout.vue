@@ -14,7 +14,7 @@
               <div><svg width="20" height="20" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M8 20H11V15H13V20H16L12 24L8 20ZM19.479 7.092C19.267 3.141 16.006 0 12 0C7.994 0 4.733 3.141 4.521 7.092C1.951 7.555 0 9.798 0 12.5C0 15.537 2.463 18 5.5 18H9V16H5.5C3.57 16 2 14.43 2 12.5C2 9.703 4.479 8.667 6.433 8.78C6.266 4.562 8.641 2 12 2C15.453 2 17.891 4.797 17.567 8.78C19.312 8.734 22 9.531 22 12.5C22 14.43 20.43 16 18.5 16H15V18H18.5C21.537 18 24 15.537 24 12.5C24 9.798 22.049 7.555 19.479 7.092V7.092Z"/></svg></div>
             </div>
             <div class="indicators__item__value">
-              {{statDetails.length > 0 && formatBytes(statDetails[statDetails.length-1].totals.pdn.size + statDetails[statDetails.length-1].totals.cdn.size)}}
+              {{statDetails.length > 0 && formatBytes(statDetails[statDetails.length-1].totals.pdn.size + statDetails[statDetails.length-1].totals.cdn.size, 1)}}
             </div>
           </div>
           <div class="indicators__item">
@@ -23,13 +23,13 @@
               <div><svg width="20" height="20" viewBox="0 0 32 32" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M21.3333 21.3333H17.3333V28H14.6667V21.3333H10.6667L16 16L21.3333 21.3333ZM25.972 13.456C25.6893 8.188 21.3413 4 16 4C10.6587 4 6.31067 8.188 6.028 13.456C2.60133 14.0733 0 17.064 0 20.6667C0 24.716 3.284 28 7.33333 28H12V25.3333H7.33333C4.76 25.3333 2.66667 23.24 2.66667 20.6667C2.66667 16.9373 5.972 15.556 8.57733 15.7067C8.35467 10.0827 11.5213 6.66667 16 6.66667C20.604 6.66667 23.8547 10.396 23.4227 15.7067C25.7493 15.6453 29.3333 16.708 29.3333 20.6667C29.3333 23.24 27.24 25.3333 24.6667 25.3333H20V28H24.6667C28.716 28 32 24.716 32 20.6667C32 17.064 29.3987 14.0733 25.972 13.456Z"/></svg></div>
             </div>
             <div class="indicators__item__value">
-              {{statDetails.length > 0 && formatBytes(statDetails[statDetails.length-1].totals.upload.size)}}
+              {{statDetails.length > 0 && formatBytes(statDetails[statDetails.length-1].totals.upload.size, 1)}}
             </div>
           </div>
           <div class="indicators__item">
             <div class="indicators__item__label">
-              <div style="margin-right: 10px;">Your user ID</div>
-              <div><svg width="24" height="24" viewBox="0 0 28 28" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M14 0C6.2685 0 0 6.2685 0 14C0 21.7315 6.2685 28 14 28C21.7315 28 28 21.7315 28 14C28 6.2685 21.7315 0 14 0ZM23.0452 21.3558C22.7407 20.6722 22.1247 20.1997 20.8623 19.908C18.1872 19.2908 15.6963 18.7495 16.9038 16.4722C20.573 9.53983 17.8757 5.83333 14 5.83333C10.0473 5.83333 7.41533 9.68217 11.0962 16.4722C12.3398 18.7635 9.75683 19.3037 7.13767 19.908C5.873 20.1997 5.26167 20.6757 4.9595 21.3617C3.32033 19.3515 2.33333 16.7895 2.33333 14C2.33333 7.567 7.567 2.33333 14 2.33333C20.433 2.33333 25.6667 7.567 25.6667 14C25.6667 16.7872 24.6808 19.3468 23.0452 21.3558Z"/></svg></div>
+              <div style="margin-right: 10px;">Your ID</div>
+              <div><svg width="20" height="20" viewBox="0 0 28 28" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M14 0C6.2685 0 0 6.2685 0 14C0 21.7315 6.2685 28 14 28C21.7315 28 28 21.7315 28 14C28 6.2685 21.7315 0 14 0ZM23.0452 21.3558C22.7407 20.6722 22.1247 20.1997 20.8623 19.908C18.1872 19.2908 15.6963 18.7495 16.9038 16.4722C20.573 9.53983 17.8757 5.83333 14 5.83333C10.0473 5.83333 7.41533 9.68217 11.0962 16.4722C12.3398 18.7635 9.75683 19.3037 7.13767 19.908C5.873 20.1997 5.26167 20.6757 4.9595 21.3617C3.32033 19.3515 2.33333 16.7895 2.33333 14C2.33333 7.567 7.567 2.33333 14 2.33333C20.433 2.33333 25.6667 7.567 25.6667 14C25.6667 16.7872 24.6808 19.3468 23.0452 21.3558Z"/></svg></div>
             </div>
             <div class="indicators__item__value">
               {{tlprt && tlprt.connectionId.slice(0,6)}}
@@ -55,14 +55,17 @@
           </div> -->
         </div>
       </div>
-      <!-- <div class="chart">
+      <div class="chart">
         <chart :data="statDetails"/>
-      </div> -->
+      </div>
     </div>
     <div class="node-list">
-      <div class="h1">Node Rating</div>
-      <div style="margin: 20px 50px;">
-        <graph :data="nodeTable" :edges="graphTable"/>
+      <div class="h1">Node Rating {{nodeTable.length}} peers total, {{peerListConnected.length}} connected</div>
+      <!-- <div style="margin: 20px 50px;">
+        <graph :data="nodeTable" style="width:100%" :edges="graphTable"/>
+      </div> -->
+      <div class="map">
+        <base-map/>
       </div>
       <div class="table table--thead">
         <div class="th">User</div>
@@ -79,49 +82,49 @@
 </template>
 
 <style scoped>
-  .layout { display: grid; grid-template-columns: 2fr 3fr; height: 100vh; }
-  .logo { padding: 20px 50px; display: flex; justify-content: flex-start; }
-  .pane { box-shadow: 0px 4px 16px rgba(48, 80, 109, 0.15); border-radius: 0 0 10px 10px; margin: 0 50px; }
+  .layout { display: grid; grid-template-columns: 50% 50%; }
+  .logo { display: flex; justify-content: flex-start; }
+  .pane { box-shadow: 0px 4px 16px rgba(48, 80, 109, 0.15); border-radius: 0 0 10px 10px; }
   .indicators { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px 4px; }
   .indicators__item { padding: 10px 20px; overflow-x: hidden; }
-  .indicators__item__label { display: flex; align-items: center; justify-content: flex-start; opacity: .5; text-transform: uppercase; font-size: .75rem; color: rgba(0,0,0,.75); }
-  .indicators__item__value { font-size: 1.5rem; font-weight: 400; }
-  .h1 { font-size: 1.5rem; font-weight: 700; margin: 4rem 50px 1rem; }
-  .table { display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 1.25rem 0; margin: 0 50px; box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2); }
-  .table--thead { background-color: none; text-transform: uppercase; font-size: .75rem; color: rgba(0,0,0,.5); letter-spacing: .15em; padding-top: .75rem; padding-bottom: .75rem; }
+  .indicators__item__label { display: flex; align-items: center; justify-content: flex-start; opacity: .5; text-transform: uppercase; font-size: .75rem; letter-spacing: .1em; color: rgba(0,0,0,.75); }
+  .indicators__item__value { font-size: 1.75vw; font-weight: 400; overflow: hidden; }
+  .h1 { font-size: 1.5rem; font-weight: 700; }
+  .table { display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 1.25rem 0; box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2); }
+  .table--thead { background-color: none; text-transform: uppercase; font-size: .75rem; color: rgba(0,0,0,.5); letter-spacing: .1em; padding-top: .75rem; padding-bottom: .75rem; }
   .td { font-size: 1.25rem; }
-  .chart { margin: 0 50px; }
   .account { position: absolute; top: 0; right: 0; }
+  .logo, .pane, .chart, .h1, .map, .table { margin: 0 50px; }
 
-  @media all and (max-width: 980px) {
+  @media all and (max-width: 1000px) {
+    .logo, .pane, .chart, .h1, .table { margin: 0 20px; }
+    .map { margin: 0; }
     .layout { display: flex; flex-direction: column; }
-    .logo { padding: 20px; }
-    .pane { margin: 0 20px; }
-    .indicators__item__value { font-size: 1rem; font-weight: 400; }
-    .table { padding: 1rem 20px; margin: 0; }
-    .h1 { margin: 2rem 20px 1rem; }
-    .table--thead { margin: 0; padding: .75rem 20px; background-color: #F9FAFB; text-transform: uppercase; font-size: .75rem; color: rgba(0,0,0,.5); letter-spacing: .15em; padding-top: .75rem; padding-bottom: .75rem; }
-    .chart { margin: 0 20px; }
+    .indicators__item__value { font-size: calc(6px + 3vw); font-weight: 400; }
+    .table--thead { padding: .75rem 20px; background-color: #F9FAFB; text-transform: uppercase; font-size: .75rem; color: rgba(0,0,0,.5); letter-spacing: .15em; padding-top: .75rem; padding-bottom: .75rem; }
   }
 </style>
 
 <script>
   import Chart from './Chart'
   import Graph from './Graph'
+  import BaseMap from './BaseMap'
   import { cloneDeep, groupBy, map, sortBy, reverse, isEqual, } from 'lodash'
   import axios from 'axios'
   import { formatBytes } from '@/shared'
 
   const KEY_TOKEN = "9c2fb9240c5a4e2c"
+  // const KEY_TOKEN = "ace2d956391d9931"
 
   export default {
-    components: { Chart, Graph, },
+    components: { Chart, Graph, BaseMap, },
     data: function() {
       return {
         statDetails: [],
         tlprt: null,
         connectionId: null,
-        peerList: null, //[{"connection_id":"930ac62dfb326580","target_id":"38d15d02dc33cf5a","pdn_size":"16279672"},{"connection_id":"91b5e1957d184ca4","target_id":"38d15d02dc33cf5a","pdn_size":"9159736"},{"connection_id":"53ee982288bc3055","target_id":"38d15d02dc33cf5a","pdn_size":"5787204"},{"connection_id":"53ee982288bc3055","target_id":"930ac62dfb326580","pdn_size":"4429656"},{"connection_id":"53ee982288bc3055","target_id":"91b5e1957d184ca4","pdn_size":"3368208"},{"connection_id":"91b5e1957d184ca4","target_id":"930ac62dfb326580","pdn_size":"2989576"},{"connection_id":"38d15d02dc33cf5a","target_id":"930ac62dfb326580","pdn_size":"2862488"},{"connection_id":"91b5e1957d184ca4","target_id":"53ee982288bc3055","pdn_size":"2287208"},{"connection_id":"930ac62dfb326580","target_id":"91b5e1957d184ca4","pdn_size":"2105036"},{"connection_id":"930ac62dfb326580","target_id":"53ee982288bc3055","pdn_size":"1382176"},{"connection_id":"38d15d02dc33cf5a","target_id":"91b5e1957d184ca4","pdn_size":"1297012"},{"connection_id":"eec350b115ea3916","target_id":"91b5e1957d184ca4","pdn_size":"1197372"},{"connection_id":"eec350b115ea3916","target_id":"930ac62dfb326580","pdn_size":"836600"},{"connection_id":"b83526f9dc6e25c9","target_id":"930ac62dfb326580","pdn_size":"626416"},{"connection_id":"b83526f9dc6e25c9","target_id":"53ee982288bc3055","pdn_size":"608368"},{"connection_id":"eec350b115ea3916","target_id":"38d15d02dc33cf5a","pdn_size":"403260"},{"connection_id":"38d15d02dc33cf5a","target_id":"53ee982288bc3055","pdn_size":"376940"}],
+        peerList: null,// [{"connection_id":"930ac62dfb326580","target_id":"38d15d02dc33cf5a","pdn_size":"16279672"},{"connection_id":"91b5e1957d184ca4","target_id":"38d15d02dc33cf5a","pdn_size":"9159736"},{"connection_id":"53ee982288bc3055","target_id":"38d15d02dc33cf5a","pdn_size":"5787204"},{"connection_id":"53ee982288bc3055","target_id":"930ac62dfb326580","pdn_size":"4429656"},{"connection_id":"53ee982288bc3055","target_id":"91b5e1957d184ca4","pdn_size":"3368208"},{"connection_id":"91b5e1957d184ca4","target_id":"930ac62dfb326580","pdn_size":"2989576"},{"connection_id":"38d15d02dc33cf5a","target_id":"930ac62dfb326580","pdn_size":"2862488"},{"connection_id":"91b5e1957d184ca4","target_id":"53ee982288bc3055","pdn_size":"2287208"},{"connection_id":"930ac62dfb326580","target_id":"91b5e1957d184ca4","pdn_size":"2105036"},{"connection_id":"930ac62dfb326580","target_id":"53ee982288bc3055","pdn_size":"1382176"},{"connection_id":"38d15d02dc33cf5a","target_id":"91b5e1957d184ca4","pdn_size":"1297012"},{"connection_id":"eec350b115ea3916","target_id":"91b5e1957d184ca4","pdn_size":"1197372"},{"connection_id":"eec350b115ea3916","target_id":"930ac62dfb326580","pdn_size":"836600"},{"connection_id":"b83526f9dc6e25c9","target_id":"930ac62dfb326580","pdn_size":"626416"},{"connection_id":"b83526f9dc6e25c9","target_id":"53ee982288bc3055","pdn_size":"608368"},{"connection_id":"eec350b115ea3916","target_id":"38d15d02dc33cf5a","pdn_size":"403260"},{"connection_id":"38d15d02dc33cf5a","target_id":"53ee982288bc3055","pdn_size":"376940"}],
+        peerListConnected: [],
       }
     },
     created() {
@@ -179,10 +182,19 @@
               }
             }
           })
-          .then(function (instance) {
+          .then((instance) => {
             tlprt = instance;
-            console.log("The video has now been loaded!");
-            // tlprt.onSegmentLoaded = (segment) => console.log(`segment loaded:`, segment);
+            tlprt.onPeerConnectionOpened = (peerId) => { 
+              if (this.peerListConnected.indexOf(peerId) === -1) {
+                this.peerListConnected.push(peerId);
+              }
+            }
+            tlprt.onPeerConnectionClosed = (peerId) => {
+              let index = this.peerListConnected.indexOf(peerId);
+              if (index !== -1) {
+                this.peerListConnected.splice(index, 1);
+              }
+            }
             window.addEventListener("unload", function () {
               if (tlprt) {
                 tlprt.dispose();

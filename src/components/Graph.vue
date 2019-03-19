@@ -1,6 +1,6 @@
 <template>
   <div>
-    <chart :options="options" style="width: 100%; height: 150px; background: #eee;"/>
+    <chart :options="options" :autoresize="true" style="width: 100%; height: 150px; background: #eee;"/>
   </div>
 </template>
 
