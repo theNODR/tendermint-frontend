@@ -94,11 +94,13 @@
   .table--thead { background-color: none; text-transform: uppercase; font-size: .75rem; color: rgba(0,0,0,.5); letter-spacing: .1em; padding-top: .75rem; padding-bottom: .75rem; }
   .td { font-size: 1.25rem; }
   .account { position: absolute; top: 0; right: 0; }
-  .logo, .pane, .chart, .h1, .map, .table { margin: 0 50px; }
+  .logo, .pane, .chart, .h1, .map { margin: 50px 50px; }
+  .table { margin: 0 50px; }
 
   @media all and (max-width: 1000px) {
-    .logo, .pane, .chart, .h1, .table { margin: 0 20px; }
-    .map { margin: 0; }
+    .logo, .pane, .chart, .h1 { margin: 50px 20px; }
+    .table { margin: 0; padding: .75rem 20px; }
+    .map { margin: 50px 0; }
     .layout { display: flex; flex-direction: column; }
     .indicators__item__value { font-size: calc(6px + 3vw); font-weight: 400; }
     .table--thead { padding: .75rem 20px; background-color: #F9FAFB; text-transform: uppercase; font-size: .75rem; color: rgba(0,0,0,.5); letter-spacing: .15em; padding-top: .75rem; padding-bottom: .75rem; }
@@ -109,6 +111,7 @@
   import Chart from './Chart'
   import Graph from './Graph'
   import BaseMap from './BaseMap'
+  import BaseWorld from './BaseWorld'
   import { cloneDeep, groupBy, map, sortBy, reverse, isEqual, } from 'lodash'
   import axios from 'axios'
   import { formatBytes } from '@/shared'
@@ -117,17 +120,17 @@
   // const KEY_TOKEN = "ace2d956391d9931"
 
   export default {
-    components: { Chart, Graph, BaseMap, },
+    components: { Chart, Graph, BaseMap, BaseWorld, },
     data: function() {
       return {
         statDetails: [],
         tlprt: null,
         connectionId: null,
-        peerList: null,// [{"connection_id":"930ac62dfb326580","target_id":"38d15d02dc33cf5a","pdn_size":"16279672"},{"connection_id":"91b5e1957d184ca4","target_id":"38d15d02dc33cf5a","pdn_size":"9159736"},{"connection_id":"53ee982288bc3055","target_id":"38d15d02dc33cf5a","pdn_size":"5787204"},{"connection_id":"53ee982288bc3055","target_id":"930ac62dfb326580","pdn_size":"4429656"},{"connection_id":"53ee982288bc3055","target_id":"91b5e1957d184ca4","pdn_size":"3368208"},{"connection_id":"91b5e1957d184ca4","target_id":"930ac62dfb326580","pdn_size":"2989576"},{"connection_id":"38d15d02dc33cf5a","target_id":"930ac62dfb326580","pdn_size":"2862488"},{"connection_id":"91b5e1957d184ca4","target_id":"53ee982288bc3055","pdn_size":"2287208"},{"connection_id":"930ac62dfb326580","target_id":"91b5e1957d184ca4","pdn_size":"2105036"},{"connection_id":"930ac62dfb326580","target_id":"53ee982288bc3055","pdn_size":"1382176"},{"connection_id":"38d15d02dc33cf5a","target_id":"91b5e1957d184ca4","pdn_size":"1297012"},{"connection_id":"eec350b115ea3916","target_id":"91b5e1957d184ca4","pdn_size":"1197372"},{"connection_id":"eec350b115ea3916","target_id":"930ac62dfb326580","pdn_size":"836600"},{"connection_id":"b83526f9dc6e25c9","target_id":"930ac62dfb326580","pdn_size":"626416"},{"connection_id":"b83526f9dc6e25c9","target_id":"53ee982288bc3055","pdn_size":"608368"},{"connection_id":"eec350b115ea3916","target_id":"38d15d02dc33cf5a","pdn_size":"403260"},{"connection_id":"38d15d02dc33cf5a","target_id":"53ee982288bc3055","pdn_size":"376940"}],
+        peerList: [{"connection_id":"930ac62dfb326580","target_id":"38d15d02dc33cf5a","pdn_size":"16279672"},{"connection_id":"91b5e1957d184ca4","target_id":"38d15d02dc33cf5a","pdn_size":"9159736"},{"connection_id":"53ee982288bc3055","target_id":"38d15d02dc33cf5a","pdn_size":"5787204"},{"connection_id":"53ee982288bc3055","target_id":"930ac62dfb326580","pdn_size":"4429656"},{"connection_id":"53ee982288bc3055","target_id":"91b5e1957d184ca4","pdn_size":"3368208"},{"connection_id":"91b5e1957d184ca4","target_id":"930ac62dfb326580","pdn_size":"2989576"},{"connection_id":"38d15d02dc33cf5a","target_id":"930ac62dfb326580","pdn_size":"2862488"},{"connection_id":"91b5e1957d184ca4","target_id":"53ee982288bc3055","pdn_size":"2287208"},{"connection_id":"930ac62dfb326580","target_id":"91b5e1957d184ca4","pdn_size":"2105036"},{"connection_id":"930ac62dfb326580","target_id":"53ee982288bc3055","pdn_size":"1382176"},{"connection_id":"38d15d02dc33cf5a","target_id":"91b5e1957d184ca4","pdn_size":"1297012"},{"connection_id":"eec350b115ea3916","target_id":"91b5e1957d184ca4","pdn_size":"1197372"},{"connection_id":"eec350b115ea3916","target_id":"930ac62dfb326580","pdn_size":"836600"},{"connection_id":"b83526f9dc6e25c9","target_id":"930ac62dfb326580","pdn_size":"626416"},{"connection_id":"b83526f9dc6e25c9","target_id":"53ee982288bc3055","pdn_size":"608368"},{"connection_id":"eec350b115ea3916","target_id":"38d15d02dc33cf5a","pdn_size":"403260"},{"connection_id":"38d15d02dc33cf5a","target_id":"53ee982288bc3055","pdn_size":"376940"}],
         peerListConnected: [],
       }
     },
-    created() {
+    mounted() {
       this.playerInit()
       setInterval(() => {
         axios.get(`https://api.teleport.media/demo/peerconnectionstat?apiKey=${KEY_TOKEN}`)
