@@ -10,7 +10,7 @@
           <video id="video" autoplay controls muted playsinline style="width: 100%;">
             <source id="video-source" type="application/x-mpegURL">
           </video>
-          <div v-if="supports.webrtc" class="indicators">
+          <div v-if="supports.ios" class="indicators">
             <div class="indicators__item">
               <div class="indicators__item__label">
                 <div style="margin-right: 10px;">Download</div>
@@ -57,8 +57,14 @@
               </div>
             </div> -->
           </div>
+          <div v-else class="pane__notice-webrtc">
+            <div class="pane__notice-webrtc__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="#777" width="20" height="20" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.31 7.526c-.099-.807.528-1.526 1.348-1.526.771 0 1.377.676 1.28 1.451l-.757 6.053c-.035.283-.276.496-.561.496s-.526-.213-.562-.496l-.748-5.978zm1.31 10.724c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+            </div>
+            This device does not seem to support WebRTC
+          </div>
         </div>
-        <div v-if="supports.webrtc" class="chart">
+        <div v-if="supports.ios" class="chart">
           <chart :data="statDetails"/>
         </div>
       </div>
@@ -102,6 +108,8 @@
   .pane, .chart, .h1, .map { margin: 50px 50px; }
   .logo { margin: 25px 50px; }
   .table { margin: 0 50px; }
+  .pane__notice-webrtc { padding: 20px; display: flex; justify-content: center; color: rgba(0,0,0,.5); align-items: center; }
+  .pane__notice-webrtc__icon { margin: 0 5px; }
 
   @media all and (max-width: 1000px) {
     .logo, .pane, .chart, .h1 { margin: 25px 20px; }
@@ -110,6 +118,7 @@
     .layout { display: flex; flex-direction: column; }
     .indicators__item__label { font-size: .6rem; }
     .indicators__item__value { font-size: calc(6px + 3vw); font-weight: 400; }
+    .pane__notice-webrtc { font-size: .75rem; }
     .table--thead { padding: .75rem 20px; background-color: #F9FAFB; text-transform: uppercase; font-size: .75rem; color: rgba(0,0,0,.5); letter-spacing: .15em; padding-top: .75rem; padding-bottom: .75rem; }
   }
 </style>
@@ -141,7 +150,7 @@
     },
     mounted() {
       this.supports.hls = document.getElementById('video').canPlayType('application/vnd.apple.mpegURL') ? true : false
-      this.supports.webrtc = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || window.RTCPeerConnection
+      this.supports.ios = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
       if (this.supports.hls) {
         document.getElementById('video-source').src = "https://stream.teleport.media/hls/video.m3u8"
       } else {
