@@ -10,7 +10,7 @@
           <video id="video" autoplay controls muted playsinline style="width: 100%;">
             <source id="video-source" type="application/x-mpegURL">
           </video>
-          <div v-if="!supports.ios" class="indicators">
+          <div v-if="supports.mediaSourceExtensions" class="indicators">
             <div class="indicators__item">
               <div class="indicators__item__label">
                 <div style="margin-right: 10px;">Download</div>
@@ -64,7 +64,7 @@
             This device does not seem to support WebRTC
           </div>
         </div>
-        <div v-if="!supports.ios" class="chart">
+        <div v-if="supports.mediaSourceExtensions" class="chart">
           <chart :data="statDetails"/>
         </div>
       </div>
@@ -142,15 +142,12 @@
         connectionId: null,
         peerList: [],
         peerListConnected: [],
-        supports: {
-          hls: null,
-          ios: null,
-        },
+        supports: {},
       }
     },
     mounted() {
       this.supports.hls = document.getElementById('video').canPlayType('application/vnd.apple.mpegURL') ? true : false
-      this.supports.ios = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
+      this.supports.mediaSourceExtensions = window.MediaSource ? true : false
       if (this.supports.hls) {
         document.getElementById('video-source').src = "https://stream.teleport.media/hls/video.m3u8"
       } else {
@@ -188,47 +185,6 @@
       formatBytes,
       groupBy,
       map,
-      // playerInit() {
-      //   var tlprt;
-      //   var STREAM_URL = "https://stream.teleport.media/hls/video.m3u8";
-      //   var API_KEY = process.env.VUE_APP_API_KEY;
-
-      //   let initApp = () => {
-      //       teleport.initialize({
-      //               apiKey: API_KEY,
-      //               loader: {
-      //                   type: "clappr-hls"
-      //               }
-      //           })
-      //           .then(function (instance) {
-      //               tlprt = instance;
-      //               var TeleportClapprHlsPlugin = instance.getLoader().getPlugin();
-      //               var player = new Clappr.Player({
-      //                   source: STREAM_URL,
-      //                   // autoPlay: true,
-      //                   plugins: [
-      //                       TeleportClapprHlsPlugin
-      //                   ],
-      //                   parentId: "#video"
-      //               });
-      //           })
-      //           .then(function () {
-      //               console.log("The video has now been loaded!");
-      //               window.addEventListener("unload", function () {
-      //                   if (tlprt) {
-      //                       tlprt.dispose();
-      //                       tlprt = null;
-      //                   }
-      //               });
-      //           })
-      //           .catch(onError);
-
-      //   function onError(error) {
-      //       console.error("Error code", error.code, "object", error);
-      //   }
-      // }
-      //   document.addEventListener("load", initApp);
-      // }
       playerInit() {
         let tlprt;
         let STREAM_URL = "https://stream.teleport.media/hls/video.m3u8";
@@ -240,13 +196,6 @@
           hls.on(Hls.Events.MANIFEST_PARSED, function () {
             video.play();
           })
-          // hls.on(Hls.Events.MANIFEST_PARSED, function () {
-          //   try {
-          //     video.play();
-          //   } catch(error) {
-          //     console.log(error)
-          //   }
-          // });
           teleport.initialize({
             apiKey: API_KEY,
             loader: {
