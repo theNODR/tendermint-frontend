@@ -177,13 +177,13 @@
           let video = document.getElementById('video');
           hls.loadSource(STREAM_URL);
           hls.attachMedia(video);
-          try {
-            hls.on(Hls.Events.MANIFEST_PARSED, function () {
-              video.play();
-            })
-          } catch(error) {
-            console.log(error)
-          }
+          // try {
+          //   hls.on(Hls.Events.MANIFEST_PARSED, function () {
+          //     video.play();
+          //   })
+          // } catch(error) {
+          //   console.log(error)
+          // }
           // hls.on(Hls.Events.MANIFEST_PARSED, function () {
           //   try {
           //     video.play();
