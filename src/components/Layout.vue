@@ -8,7 +8,7 @@
       <div class="user-profile">
         <div class="h1">Current session</div>
         <div class="pane">
-          <video id="video" autoplay controls muted style="width: 100%;"></video>
+          <video id="video" autoplay controls muted playsinline style="width: 100%;"></video>
           <div class="indicators">
             <div class="indicators__item">
               <div class="indicators__item__label">
