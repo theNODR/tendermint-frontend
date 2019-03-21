@@ -10,7 +10,7 @@
           <video id="video" autoplay controls muted playsinline style="width: 100%;">
             <source id="video-source" type="application/x-mpegURL">
           </video>
-          <div v-if="supports.ios" class="indicators">
+          <div v-if="!supports.ios" class="indicators">
             <div class="indicators__item">
               <div class="indicators__item__label">
                 <div style="margin-right: 10px;">Download</div>
@@ -64,7 +64,7 @@
             This device does not seem to support WebRTC
           </div>
         </div>
-        <div v-if="supports.ios" class="chart">
+        <div v-if="!supports.ios" class="chart">
           <chart :data="statDetails"/>
         </div>
       </div>
@@ -144,7 +144,7 @@
         peerListConnected: [],
         supports: {
           hls: null,
-          webrtc: null,
+          ios: null,
         },
       }
     },
