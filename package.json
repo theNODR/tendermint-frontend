@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "clappr": "^0.3.3",
     "echarts": "^4.1.0",
     "leaflet": "^1.4.0",
     "lodash": "^4.17.11",

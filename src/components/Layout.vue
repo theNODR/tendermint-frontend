@@ -8,7 +8,9 @@
       <div class="user-profile">
         <div class="h1">Current session</div>
         <div class="pane">
-          <video id="video" autoplay controls muted playsinline style="width: 100%;"></video>
+          <video id="video" autoplay controls muted playsinline style="width: 100%;">
+            <source src="https://stream.teleport.media/hls/video.m3u8" type="application/x-mpegURL">
+          </video>
           <div class="indicators">
             <div class="indicators__item">
               <div class="indicators__item__label">
@@ -122,6 +124,7 @@
   import { cloneDeep, groupBy, map, sortBy, reverse, isEqual, uniq, uniqBy, } from 'lodash'
   import axios from 'axios'
   import { formatBytes } from '@/shared'
+  import Clappr from "clappr"
 
   export default {
     components: { Chart, Graph, BaseMap, BaseWorld, },
@@ -135,7 +138,16 @@
       }
     },
     mounted() {
-      this.playerInit()
+      if (document.getElementById('video').canPlayType('application/vnd.apple.mpegURL')) {
+        console.log(true)
+        } else {
+          // console.log(false)
+      try {
+        this.playerInit()
+      } catch(error) {
+        console.log(error)
+      }
+          }//.src="https://stream.teleport.media/hls/video.m3u8"
       setInterval(() => {
         axios.get(`https://api.teleport.media/demo/peerconnectionstat?apiKey=${process.env.VUE_APP_API_KEY}`)
           .then(({data}) => {
@@ -168,22 +180,58 @@
       formatBytes,
       groupBy,
       map,
+      // playerInit() {
+      //   var tlprt;
+      //   var STREAM_URL = "https://stream.teleport.media/hls/video.m3u8";
+      //   var API_KEY = process.env.VUE_APP_API_KEY;
+
+      //   let initApp = () => {
+      //       teleport.initialize({
+      //               apiKey: API_KEY,
+      //               loader: {
+      //                   type: "clappr-hls"
+      //               }
+      //           })
+      //           .then(function (instance) {
+      //               tlprt = instance;
+      //               var TeleportClapprHlsPlugin = instance.getLoader().getPlugin();
+      //               var player = new Clappr.Player({
+      //                   source: STREAM_URL,
+      //                   // autoPlay: true,
+      //                   plugins: [
+      //                       TeleportClapprHlsPlugin
+      //                   ],
+      //                   parentId: "#video"
+      //               });
+      //           })
+      //           .then(function () {
+      //               console.log("The video has now been loaded!");
+      //               window.addEventListener("unload", function () {
+      //                   if (tlprt) {
+      //                       tlprt.dispose();
+      //                       tlprt = null;
+      //                   }
+      //               });
+      //           })
+      //           .catch(onError);
+
+      //   function onError(error) {
+      //       console.error("Error code", error.code, "object", error);
+      //   }
+      // }
+      //   document.addEventListener("load", initApp);
+      // }
       playerInit() {
         let tlprt;
         let STREAM_URL = "https://stream.teleport.media/hls/video.m3u8";
         let API_KEY = process.env.VUE_APP_API_KEY;
-        let initApp = () => {
           let hls = new Hls();
           let video = document.getElementById('video');
           hls.loadSource(STREAM_URL);
           hls.attachMedia(video);
-          // try {
-          //   hls.on(Hls.Events.MANIFEST_PARSED, function () {
-          //     video.play();
-          //   })
-          // } catch(error) {
-          //   console.log(error)
-          // }
+          hls.on(Hls.Events.MANIFEST_PARSED, function () {
+            video.play();
+          })
           // hls.on(Hls.Events.MANIFEST_PARSED, function () {
           //   try {
           //     video.play();
@@ -220,17 +268,11 @@
               }
             });
           })
-          .catch(onError);
           setInterval(() => {
             this.statDetails.push(cloneDeep(tlprt.getStatDetails()))
             this.connectionId = tlprt.connectionId
             this.tlprt = tlprt
           }, 1000)
-        }
-        function onError(error) {
-          console.error("Error code", error.code, "object", error);
-        }
-        document.addEventListener("DOMContentLoaded", initApp);
       },
     }
   }
