@@ -1,6 +1,6 @@
 <template>
-  <div style="border: 1px solid #ccc; border-radius: 10px;">
-    <chart :options="options" style="width: 100%; height: 300px;" :autoresize="true"/>
+  <div>
+    <chart :options="options" style="width: 100%; height: 250px;" :autoresize="true"/>
   </div>
 </template>
 
@@ -44,80 +44,98 @@
             {show: false},
           ],
           series: [
-            // {
-            //   name: '123',
-            //   type: 'line',
-            //   symbol: 'none',
-            //   yAxisIndex: 1,
-            //   data: this.data.map(x => {
-            //     return [+start.getTime() + x.totals.cdn.time, x.totals.cdn.speed]
-            //   })
-            // },
             {
-              type:'line',
-              stack: true,
-              symbol: 'none',
-              yAxisIndex: 0,
-              itemStyle: {
-                color: '#fff',
-              },
-              lineStyle: {
-                width: 1,
-                color: '#007df7',
-                opacity: 1,
-              },
-              areaStyle: {
-                color: '#007df7',
-                opacity: .1,
-              },
-              // step: 'middle',
-              name: 'cdn',
-              data: this.data.map(x => {
-                return [+start.getTime() + x.totals.cdn.time, x.totals.cdn.size]
-              }),
-              // markLine: {
-              //   silent: true,
-              //   lineStyle: {
-              //     color: '#000',
-              //     width: 1,
-              //   },
-              //   symbol: 'none',
-              //   label: {
-              //     formatter: (x) => formatBytes(x.value)
-              //   },
-              //   data: [
-              //     [{
-              //       type: 'max',
-              //       x: '5%',
-              //     },
-              //     {
-              //       type: 'max',
-              //       x: '90%',
-              //     }],
-              //   ],
-              // },
-            },
-            {
+              name: '123',
               type: 'line',
-              stack: true,
-              yAxisIndex: 0,
               symbol: 'none',
-              itemStyle: {
-                color: '#007df7',
-              },
               lineStyle: {
-                width: 1,
-                color: '#007df7',
+                color: '#0062FF',
+                width: 2,
               },
-              areaStyle: {
-                opacity: 0,
-              },
-              // step: 'middle',
-              name: 'pdn',
+              yAxisIndex: 1,
               data: this.data.map(x => {
-                return [+start.getTime() + x.totals.cdn.time, x.totals.pdn.size]
+                return [+start.getTime() + x.totals.cdn.time, x.totals.cdn.speed + x.totals.pdn.speed]
               })
             },
+            {
+              name: '123',
+              type: 'line',
+              lineStyle: {
+                color: '#C43531',
+                width: 2,
+              },
+              symbol: 'none',
+              yAxisIndex: 1,
+              data: this.data.map(x => {
+                return [+start.getTime() + x.totals.cdn.time, x.totals.upload.speed]
+              })
+            },
+            // {
+            //   type:'line',
+            //   stack: true,
+            //   symbol: 'none',
+            //   yAxisIndex: 0,
+            //   itemStyle: {
+            //     color: '#fff',
+            //   },
+            //   lineStyle: {
+            //     width: 1,
+            //     color: '#007df7',
+            //     opacity: 1,
+            //   },
+            //   areaStyle: {
+            //     color: '#007df7',
+            //     opacity: .1,
+            //   },
+            //   // step: 'middle',
+            //   name: 'cdn',
+            //   data: this.data.map(x => {
+            //     return [+start.getTime() + x.totals.cdn.time, x.totals.cdn.size]
+            //   }),
+            //   // markLine: {
+            //   //   silent: true,
+            //   //   lineStyle: {
+            //   //     color: '#000',
+            //   //     width: 1,
+            //   //   },
+            //   //   symbol: 'none',
+            //   //   label: {
+            //   //     formatter: (x) => formatBytes(x.value)
+            //   //   },
+            //   //   data: [
+            //   //     [{
+            //   //       type: 'max',
+            //   //       x: '5%',
+            //   //     },
+            //   //     {
+            //   //       type: 'max',
+            //   //       x: '90%',
+            //   //     }],
+            //   //   ],
+            //   // },
+            // },
+            // {
+            //   type: 'line',
+            //   stack: true,
+            //   step: false,
+            //   yAxisIndex: 0,
+            //   symbol: 'none',
+            //   itemStyle: {
+            //     color: '#007df7',
+            //   },
+            //   lineStyle: {
+            //     width: 1,
+            //     color: '#007df7',
+            //   },
+            //   // areaStyle: {
+            //   //   opacity: 1,
+            //   // },
+            //   // step: 'middle',
+            //   name: 'pdn',
+            //   data: this.data.map(x => {
+            //     return [+start.getTime() + x.totals.cdn.time, x.totals.pdn.size]
+            //   })
+            // },
           ]
         }
       },

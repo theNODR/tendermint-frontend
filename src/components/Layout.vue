@@ -1,81 +1,85 @@
 <template>
-  <div class="layout">
-    <!-- <div class="account">Account</div> -->
-    <div class="user-profile">
-      <div class="logo">
-        <svg height="25" viewBox="0 0 155 32" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M147.522 31.6504L140.934 21.7008H136.82V31.6504H130.662V0.349548H140.154C144.027 0.349548 147.038 1.29072 149.19 3.17308C151.341 5.05543 152.39 7.63694 152.39 10.8907C152.39 12.8269 151.986 14.6285 151.18 16.3227C150.373 18.0168 149.136 19.3344 147.469 20.3025L154.729 31.6504H147.522ZM136.793 15.7311H141.176C142.843 15.7311 144.08 15.247 144.833 14.2521C145.586 13.284 145.99 12.2084 145.99 11.079C145.99 9.94955 145.667 8.87392 145.022 7.82518C144.376 6.77644 143.112 6.26551 141.23 6.26551H136.82V15.7311H136.793Z"/> <path d="M6.23865 31.758L6.1042 13.1765L25.358 31.758H28.1815V0.457153H21.9697L22.1042 19.3882L2.82353 0.457153H0V31.758H1.88235H6.23865Z"/> <path d="M115.172 8.65879C113.989 6.21173 112.107 4.19492 109.525 2.66215C106.944 1.12937 103.663 0.349548 99.6563 0.349548H87.3403V6.26551H90.2983V25.7075H87.3403V31.6235L101.189 31.6773C104.066 31.6773 106.675 31.0588 109.068 29.8218C111.461 28.5848 113.371 26.81 114.796 24.5243C116.221 22.2386 116.92 19.5764 116.92 16.5647C116.947 13.7411 116.355 11.1058 115.172 8.65879ZM107.75 23.2067C105.868 24.847 103.34 25.6806 100.14 25.6806H96.4832V6.23862H101.512C102.722 6.23862 104.039 6.53442 105.411 7.09912C106.782 7.66383 107.992 8.68568 109.014 10.1647C110.036 11.6437 110.574 13.6336 110.574 16.1075C110.574 19.2 109.633 21.5664 107.75 23.2067Z"/> <path d="M58.1902 32C67.0267 32 74.1902 24.8366 74.1902 16C74.1902 7.16344 67.0267 0 58.1902 0C49.3536 0 42.1902 7.16344 42.1902 16C42.1902 24.8366 49.3536 32 58.1902 32Z"/> </svg>
-      </div>
-      <div class="pane">
-        <video id="video" autoplay controls muted style="width: 100%;"></video>
-        <div class="indicators">
-          <div class="indicators__item">
-            <div class="indicators__item__label">
-              <div style="margin-right: 10px;">Download</div>
-              <div><svg width="20" height="20" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M8 20H11V15H13V20H16L12 24L8 20ZM19.479 7.092C19.267 3.141 16.006 0 12 0C7.994 0 4.733 3.141 4.521 7.092C1.951 7.555 0 9.798 0 12.5C0 15.537 2.463 18 5.5 18H9V16H5.5C3.57 16 2 14.43 2 12.5C2 9.703 4.479 8.667 6.433 8.78C6.266 4.562 8.641 2 12 2C15.453 2 17.891 4.797 17.567 8.78C19.312 8.734 22 9.531 22 12.5C22 14.43 20.43 16 18.5 16H15V18H18.5C21.537 18 24 15.537 24 12.5C24 9.798 22.049 7.555 19.479 7.092V7.092Z"/></svg></div>
+  <div>
+    <!-- <div class="logo">
+      <svg height="25" viewBox="0 0 155 32" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M147.522 31.6504L140.934 21.7008H136.82V31.6504H130.662V0.349548H140.154C144.027 0.349548 147.038 1.29072 149.19 3.17308C151.341 5.05543 152.39 7.63694 152.39 10.8907C152.39 12.8269 151.986 14.6285 151.18 16.3227C150.373 18.0168 149.136 19.3344 147.469 20.3025L154.729 31.6504H147.522ZM136.793 15.7311H141.176C142.843 15.7311 144.08 15.247 144.833 14.2521C145.586 13.284 145.99 12.2084 145.99 11.079C145.99 9.94955 145.667 8.87392 145.022 7.82518C144.376 6.77644 143.112 6.26551 141.23 6.26551H136.82V15.7311H136.793Z"/> <path d="M6.23865 31.758L6.1042 13.1765L25.358 31.758H28.1815V0.457153H21.9697L22.1042 19.3882L2.82353 0.457153H0V31.758H1.88235H6.23865Z"/> <path d="M115.172 8.65879C113.989 6.21173 112.107 4.19492 109.525 2.66215C106.944 1.12937 103.663 0.349548 99.6563 0.349548H87.3403V6.26551H90.2983V25.7075H87.3403V31.6235L101.189 31.6773C104.066 31.6773 106.675 31.0588 109.068 29.8218C111.461 28.5848 113.371 26.81 114.796 24.5243C116.221 22.2386 116.92 19.5764 116.92 16.5647C116.947 13.7411 116.355 11.1058 115.172 8.65879ZM107.75 23.2067C105.868 24.847 103.34 25.6806 100.14 25.6806H96.4832V6.23862H101.512C102.722 6.23862 104.039 6.53442 105.411 7.09912C106.782 7.66383 107.992 8.68568 109.014 10.1647C110.036 11.6437 110.574 13.6336 110.574 16.1075C110.574 19.2 109.633 21.5664 107.75 23.2067Z"/> <path d="M58.1902 32C67.0267 32 74.1902 24.8366 74.1902 16C74.1902 7.16344 67.0267 0 58.1902 0C49.3536 0 42.1902 7.16344 42.1902 16C42.1902 24.8366 49.3536 32 58.1902 32Z"/> </svg>
+    </div> -->
+    <div class="layout">
+      <!-- <div class="account">Account</div> -->
+      <div class="user-profile">
+        <div class="h1">Current session</div>
+        <div class="pane">
+          <video id="video" autoplay controls muted style="width: 100%;"></video>
+          <div class="indicators">
+            <div class="indicators__item">
+              <div class="indicators__item__label">
+                <div style="margin-right: 10px;">Download</div>
+                <div><svg width="20" height="20" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M8 20H11V15H13V20H16L12 24L8 20ZM19.479 7.092C19.267 3.141 16.006 0 12 0C7.994 0 4.733 3.141 4.521 7.092C1.951 7.555 0 9.798 0 12.5C0 15.537 2.463 18 5.5 18H9V16H5.5C3.57 16 2 14.43 2 12.5C2 9.703 4.479 8.667 6.433 8.78C6.266 4.562 8.641 2 12 2C15.453 2 17.891 4.797 17.567 8.78C19.312 8.734 22 9.531 22 12.5C22 14.43 20.43 16 18.5 16H15V18H18.5C21.537 18 24 15.537 24 12.5C24 9.798 22.049 7.555 19.479 7.092V7.092Z"/></svg></div>
+              </div>
+              <div class="indicators__item__value">
+                {{statDetails.length > 0 && formatBytes(statDetails[statDetails.length-1].totals.pdn.size + statDetails[statDetails.length-1].totals.cdn.size, 1)}}
+              </div>
             </div>
-            <div class="indicators__item__value">
-              {{statDetails.length > 0 && formatBytes(statDetails[statDetails.length-1].totals.pdn.size + statDetails[statDetails.length-1].totals.cdn.size, 1)}}
+            <div class="indicators__item">
+              <div class="indicators__item__label">
+                <div style="margin-right: 10px;">Upload</div>
+                <div><svg width="20" height="20" viewBox="0 0 32 32" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M21.3333 21.3333H17.3333V28H14.6667V21.3333H10.6667L16 16L21.3333 21.3333ZM25.972 13.456C25.6893 8.188 21.3413 4 16 4C10.6587 4 6.31067 8.188 6.028 13.456C2.60133 14.0733 0 17.064 0 20.6667C0 24.716 3.284 28 7.33333 28H12V25.3333H7.33333C4.76 25.3333 2.66667 23.24 2.66667 20.6667C2.66667 16.9373 5.972 15.556 8.57733 15.7067C8.35467 10.0827 11.5213 6.66667 16 6.66667C20.604 6.66667 23.8547 10.396 23.4227 15.7067C25.7493 15.6453 29.3333 16.708 29.3333 20.6667C29.3333 23.24 27.24 25.3333 24.6667 25.3333H20V28H24.6667C28.716 28 32 24.716 32 20.6667C32 17.064 29.3987 14.0733 25.972 13.456Z"/></svg></div>
+              </div>
+              <div class="indicators__item__value">
+                {{statDetails.length > 0 && formatBytes(statDetails[statDetails.length-1].totals.upload.size, 1)}}
+              </div>
             </div>
+            <div class="indicators__item">
+              <div class="indicators__item__label">
+                <div style="margin-right: 10px;">Your ID</div>
+                <div><svg width="20" height="20" viewBox="0 0 28 28" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M14 0C6.2685 0 0 6.2685 0 14C0 21.7315 6.2685 28 14 28C21.7315 28 28 21.7315 28 14C28 6.2685 21.7315 0 14 0ZM23.0452 21.3558C22.7407 20.6722 22.1247 20.1997 20.8623 19.908C18.1872 19.2908 15.6963 18.7495 16.9038 16.4722C20.573 9.53983 17.8757 5.83333 14 5.83333C10.0473 5.83333 7.41533 9.68217 11.0962 16.4722C12.3398 18.7635 9.75683 19.3037 7.13767 19.908C5.873 20.1997 5.26167 20.6757 4.9595 21.3617C3.32033 19.3515 2.33333 16.7895 2.33333 14C2.33333 7.567 7.567 2.33333 14 2.33333C20.433 2.33333 25.6667 7.567 25.6667 14C25.6667 16.7872 24.6808 19.3468 23.0452 21.3558Z"/></svg></div>
+              </div>
+              <div class="indicators__item__value">
+                {{tlprt && tlprt.connectionId.slice(0,6)}}
+              </div>
+            </div>
+            <!-- <div class="indicators__item">
+              <div class="indicators__item__label">
+                <div style="margin-right: 10px;">Teleport</div>
+                <div><svg width="20" height="20" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M8 20H11V15H13V20H16L12 24L8 20ZM19.479 7.092C19.267 3.141 16.006 0 12 0C7.994 0 4.733 3.141 4.521 7.092C1.951 7.555 0 9.798 0 12.5C0 15.537 2.463 18 5.5 18H9V16H5.5C3.57 16 2 14.43 2 12.5C2 9.703 4.479 8.667 6.433 8.78C6.266 4.562 8.641 2 12 2C15.453 2 17.891 4.797 17.567 8.78C19.312 8.734 22 9.531 22 12.5C22 14.43 20.43 16 18.5 16H15V18H18.5C21.537 18 24 15.537 24 12.5C24 9.798 22.049 7.555 19.479 7.092V7.092Z"/></svg></div>
+              </div>
+              <div class="indicators__item__value">
+                {{statDetails.length > 0 && formatBytes(statDetails[statDetails.length-1].totals.pdn.size)}}
+              </div>
+            </div> -->
+            <!-- <div class="indicators__item">
+              <div class="indicators__item__label">
+                <div style="margin-right: 10px;">CDN</div>
+                <div><svg width="20" height="20" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M8 20H11V15H13V20H16L12 24L8 20ZM19.479 7.092C19.267 3.141 16.006 0 12 0C7.994 0 4.733 3.141 4.521 7.092C1.951 7.555 0 9.798 0 12.5C0 15.537 2.463 18 5.5 18H9V16H5.5C3.57 16 2 14.43 2 12.5C2 9.703 4.479 8.667 6.433 8.78C6.266 4.562 8.641 2 12 2C15.453 2 17.891 4.797 17.567 8.78C19.312 8.734 22 9.531 22 12.5C22 14.43 20.43 16 18.5 16H15V18H18.5C21.537 18 24 15.537 24 12.5C24 9.798 22.049 7.555 19.479 7.092V7.092Z"/></svg></div>
+              </div>
+              <div class="indicators__item__value">
+                {{statDetails.length > 0 && formatBytes(statDetails[statDetails.length-1].totals.cdn.size)}}
+              </div>
+            </div> -->
           </div>
-          <div class="indicators__item">
-            <div class="indicators__item__label">
-              <div style="margin-right: 10px;">Upload</div>
-              <div><svg width="20" height="20" viewBox="0 0 32 32" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M21.3333 21.3333H17.3333V28H14.6667V21.3333H10.6667L16 16L21.3333 21.3333ZM25.972 13.456C25.6893 8.188 21.3413 4 16 4C10.6587 4 6.31067 8.188 6.028 13.456C2.60133 14.0733 0 17.064 0 20.6667C0 24.716 3.284 28 7.33333 28H12V25.3333H7.33333C4.76 25.3333 2.66667 23.24 2.66667 20.6667C2.66667 16.9373 5.972 15.556 8.57733 15.7067C8.35467 10.0827 11.5213 6.66667 16 6.66667C20.604 6.66667 23.8547 10.396 23.4227 15.7067C25.7493 15.6453 29.3333 16.708 29.3333 20.6667C29.3333 23.24 27.24 25.3333 24.6667 25.3333H20V28H24.6667C28.716 28 32 24.716 32 20.6667C32 17.064 29.3987 14.0733 25.972 13.456Z"/></svg></div>
-            </div>
-            <div class="indicators__item__value">
-              {{statDetails.length > 0 && formatBytes(statDetails[statDetails.length-1].totals.upload.size, 1)}}
-            </div>
-          </div>
-          <div class="indicators__item">
-            <div class="indicators__item__label">
-              <div style="margin-right: 10px;">Your ID</div>
-              <div><svg width="20" height="20" viewBox="0 0 28 28" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M14 0C6.2685 0 0 6.2685 0 14C0 21.7315 6.2685 28 14 28C21.7315 28 28 21.7315 28 14C28 6.2685 21.7315 0 14 0ZM23.0452 21.3558C22.7407 20.6722 22.1247 20.1997 20.8623 19.908C18.1872 19.2908 15.6963 18.7495 16.9038 16.4722C20.573 9.53983 17.8757 5.83333 14 5.83333C10.0473 5.83333 7.41533 9.68217 11.0962 16.4722C12.3398 18.7635 9.75683 19.3037 7.13767 19.908C5.873 20.1997 5.26167 20.6757 4.9595 21.3617C3.32033 19.3515 2.33333 16.7895 2.33333 14C2.33333 7.567 7.567 2.33333 14 2.33333C20.433 2.33333 25.6667 7.567 25.6667 14C25.6667 16.7872 24.6808 19.3468 23.0452 21.3558Z"/></svg></div>
-            </div>
-            <div class="indicators__item__value">
-              {{tlprt && tlprt.connectionId.slice(0,6)}}
-            </div>
-          </div>
-          <!-- <div class="indicators__item">
-            <div class="indicators__item__label">
-              <div style="margin-right: 10px;">Teleport</div>
-              <div><svg width="20" height="20" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M8 20H11V15H13V20H16L12 24L8 20ZM19.479 7.092C19.267 3.141 16.006 0 12 0C7.994 0 4.733 3.141 4.521 7.092C1.951 7.555 0 9.798 0 12.5C0 15.537 2.463 18 5.5 18H9V16H5.5C3.57 16 2 14.43 2 12.5C2 9.703 4.479 8.667 6.433 8.78C6.266 4.562 8.641 2 12 2C15.453 2 17.891 4.797 17.567 8.78C19.312 8.734 22 9.531 22 12.5C22 14.43 20.43 16 18.5 16H15V18H18.5C21.537 18 24 15.537 24 12.5C24 9.798 22.049 7.555 19.479 7.092V7.092Z"/></svg></div>
-            </div>
-            <div class="indicators__item__value">
-              {{statDetails.length > 0 && formatBytes(statDetails[statDetails.length-1].totals.pdn.size)}}
-            </div>
-          </div> -->
-          <!-- <div class="indicators__item">
-            <div class="indicators__item__label">
-              <div style="margin-right: 10px;">CDN</div>
-              <div><svg width="20" height="20" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"> <path d="M8 20H11V15H13V20H16L12 24L8 20ZM19.479 7.092C19.267 3.141 16.006 0 12 0C7.994 0 4.733 3.141 4.521 7.092C1.951 7.555 0 9.798 0 12.5C0 15.537 2.463 18 5.5 18H9V16H5.5C3.57 16 2 14.43 2 12.5C2 9.703 4.479 8.667 6.433 8.78C6.266 4.562 8.641 2 12 2C15.453 2 17.891 4.797 17.567 8.78C19.312 8.734 22 9.531 22 12.5C22 14.43 20.43 16 18.5 16H15V18H18.5C21.537 18 24 15.537 24 12.5C24 9.798 22.049 7.555 19.479 7.092V7.092Z"/></svg></div>
-            </div>
-            <div class="indicators__item__value">
-              {{statDetails.length > 0 && formatBytes(statDetails[statDetails.length-1].totals.cdn.size)}}
-            </div>
-          </div> -->
+        </div>
+        <div class="chart">
+          <chart :data="statDetails"/>
         </div>
       </div>
-      <div class="chart">
-        <chart :data="statDetails"/>
-      </div>
-    </div>
-    <div class="node-list">
-      <div class="h1">Node Rating {{nodeTable.length}} peers total, {{peerListConnected.length}} connected</div>
-      <!-- <div style="margin: 20px 50px;">
-        <graph :data="nodeTable" style="width:100%" :edges="graphTable"/>
-      </div> -->
-      <div class="map">
-        <base-map/>
-      </div>
-      <div class="table table--thead">
-        <div class="th">User</div>
-        <div class="th">Upload</div>
-        <div class="th">Tokens</div>
-      </div>
-      <div class="table" v-for="peer in nodeTable" :key="peer.connection_id">
-        <div class="td">{{peer.connection_id.slice(0,6)}}</div>
-        <div class="td">{{formatBytes(peer.pdn_size)}}</div>
-        <div class="td">{{(peer.pdn_size/500000).toFixed(2)}}</div>
+      <div class="node-list">
+        <div class="h1">System Status</div>
+        <!-- <div class="h1">Node Rating {{nodeTable.length}} peers total, {{peerListConnected.length}} connected</div> -->
+        <!-- <div style="margin: 20px 50px;">
+          <graph :data="nodeTable" style="width:100%" :edges="graphTable"/>
+        </div> -->
+        <div class="map">
+          <base-map :data="peerList"/>
+        </div>
+        <div class="table table--thead">
+          <div class="th">User</div>
+          <div class="th">Upload</div>
+          <div class="th">Tokens</div>
+        </div>
+        <div class="table" v-for="peer in nodeTable" :key="peer.connection_id">
+          <div class="td">{{peer.connection_id.slice(0,6)}}</div>
+          <div class="td">{{formatBytes(peer.pdn_size)}}</div>
+          <div class="td">{{(peer.pdn_size/500000).toFixed(2)}}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -85,20 +89,22 @@
   .layout { display: grid; grid-template-columns: 50% 50%; }
   .logo { display: flex; justify-content: flex-start; }
   .pane { box-shadow: 0px 4px 16px rgba(48, 80, 109, 0.15); border-radius: 0 0 10px 10px; }
+  .node-list { background: rgba(0,0,0,.02); }
   .indicators { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px 4px; }
   .indicators__item { padding: 10px 20px; overflow-x: hidden; }
   .indicators__item__label { display: flex; align-items: center; justify-content: flex-start; opacity: .5; text-transform: uppercase; font-size: .75rem; letter-spacing: .1em; color: rgba(0,0,0,.75); }
   .indicators__item__value { font-size: 1.75vw; font-weight: 400; overflow: hidden; }
-  .h1 { font-size: 1.5rem; font-weight: 700; }
+  .h1 { font-family: "Asap", sans-serif; font-size: 1.75rem; font-weight: 600; }
   .table { display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 1.25rem 0; box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2); }
   .table--thead { background-color: none; text-transform: uppercase; font-size: .75rem; color: rgba(0,0,0,.5); letter-spacing: .1em; padding-top: .75rem; padding-bottom: .75rem; }
   .td { font-size: 1.25rem; }
   .account { position: absolute; top: 0; right: 0; }
-  .logo, .pane, .chart, .h1, .map { margin: 50px 50px; }
+  .pane, .chart, .h1, .map { margin: 50px 50px; }
+  .logo { margin: 25px 50px; }
   .table { margin: 0 50px; }
 
   @media all and (max-width: 1000px) {
-    .logo, .pane, .chart, .h1 { margin: 50px 20px; }
+    .logo, .pane, .chart, .h1 { margin: 25px 20px; }
     .table { margin: 0; padding: .75rem 20px; }
     .map { margin: 50px 0; }
     .layout { display: flex; flex-direction: column; }
@@ -112,12 +118,9 @@
   import Graph from './Graph'
   import BaseMap from './BaseMap'
   import BaseWorld from './BaseWorld'
-  import { cloneDeep, groupBy, map, sortBy, reverse, isEqual, } from 'lodash'
+  import { cloneDeep, groupBy, map, sortBy, reverse, isEqual, uniq, uniqBy, } from 'lodash'
   import axios from 'axios'
   import { formatBytes } from '@/shared'
-
-  const KEY_TOKEN = "9c2fb9240c5a4e2c"
-  // const KEY_TOKEN = "ace2d956391d9931"
 
   export default {
     components: { Chart, Graph, BaseMap, BaseWorld, },
@@ -126,14 +129,14 @@
         statDetails: [],
         tlprt: null,
         connectionId: null,
-        peerList: [{"connection_id":"930ac62dfb326580","target_id":"38d15d02dc33cf5a","pdn_size":"16279672"},{"connection_id":"91b5e1957d184ca4","target_id":"38d15d02dc33cf5a","pdn_size":"9159736"},{"connection_id":"53ee982288bc3055","target_id":"38d15d02dc33cf5a","pdn_size":"5787204"},{"connection_id":"53ee982288bc3055","target_id":"930ac62dfb326580","pdn_size":"4429656"},{"connection_id":"53ee982288bc3055","target_id":"91b5e1957d184ca4","pdn_size":"3368208"},{"connection_id":"91b5e1957d184ca4","target_id":"930ac62dfb326580","pdn_size":"2989576"},{"connection_id":"38d15d02dc33cf5a","target_id":"930ac62dfb326580","pdn_size":"2862488"},{"connection_id":"91b5e1957d184ca4","target_id":"53ee982288bc3055","pdn_size":"2287208"},{"connection_id":"930ac62dfb326580","target_id":"91b5e1957d184ca4","pdn_size":"2105036"},{"connection_id":"930ac62dfb326580","target_id":"53ee982288bc3055","pdn_size":"1382176"},{"connection_id":"38d15d02dc33cf5a","target_id":"91b5e1957d184ca4","pdn_size":"1297012"},{"connection_id":"eec350b115ea3916","target_id":"91b5e1957d184ca4","pdn_size":"1197372"},{"connection_id":"eec350b115ea3916","target_id":"930ac62dfb326580","pdn_size":"836600"},{"connection_id":"b83526f9dc6e25c9","target_id":"930ac62dfb326580","pdn_size":"626416"},{"connection_id":"b83526f9dc6e25c9","target_id":"53ee982288bc3055","pdn_size":"608368"},{"connection_id":"eec350b115ea3916","target_id":"38d15d02dc33cf5a","pdn_size":"403260"},{"connection_id":"38d15d02dc33cf5a","target_id":"53ee982288bc3055","pdn_size":"376940"}],
+        peerList: [],//[{"connection_id":"e69bab60f04d4a47","target_id":"79fc7aee7258781a","pdn_size":"8114268","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"3dbb29a9e274ac2c","target_id":"b187bd6a927da948","pdn_size":"4175480","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"de0caf527c631414","target_id":"9c2f4480956dd562","pdn_size":"3324404","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"5ce037985ee0b8d8","target_id":"78cfc78c9b0c7ffa","pdn_size":"2593836","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"1b76516507011686","target_id":"5711487e1c234a1e","pdn_size":"2576916","ip":"52.172.34.189","latitude":13.08784008026123,"longitude":80.27847290039062},{"connection_id":"c4e22f6ee7adbfa7","target_id":"6627d0704c091b47","pdn_size":"2445316","ip":"52.172.34.189","latitude":13.08784008026123,"longitude":80.27847290039062},{"connection_id":"9c2f4480956dd562","target_id":"de0caf527c631414","pdn_size":"2289840","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"a3c4bd2eb2c5f61d","target_id":"bc7b8eb8fa411be5","pdn_size":"1980768","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"9ac24a5676914c37","target_id":"e676f8512ee065b0","pdn_size":"1680908","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"22805f0b9fa0e2e5","target_id":"93ec0cc18f564117","pdn_size":"1650076","ip":"52.172.34.189","latitude":13.08784008026123,"longitude":80.27847290039062},{"connection_id":"ef1b517106b37fe7","target_id":"186cc3b51056802c","pdn_size":"1562468","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"da03b0e019466627","target_id":"e676f8512ee065b0","pdn_size":"1432560","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"548671e2fba48d98","target_id":"78cfc78c9b0c7ffa","pdn_size":"1414512","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"f57469f555cf19de","target_id":"c956728b5c600197","pdn_size":"1404172","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"9dbc30160d598139","target_id":"9d92eaa80cdb4897","pdn_size":"1391200","ip":"52.172.34.189","latitude":13.08784008026123,"longitude":80.27847290039062},{"connection_id":"91ac8705b41eff60","target_id":"951063cf060bda09","pdn_size":"1075736","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"78cfc78c9b0c7ffa","target_id":"9d4dcb2ed4b77a3b","pdn_size":"928156","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"6627d0704c091b47","target_id":"c4e22f6ee7adbfa7","pdn_size":"869124","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"a5f8720a4e52c629","target_id":"8d0267e00e26f680","pdn_size":"801256","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"e676f8512ee065b0","target_id":"da03b0e019466627","pdn_size":"745420","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"da2afd0f303e9a35","target_id":"f5e9301bbc97bb07","pdn_size":"737712","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"b187bd6a927da948","target_id":"8bfae3c89cc5926f","pdn_size":"631680","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"99ed270c843c858f","target_id":"ede8ea27c31e5009","pdn_size":"614384","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"bc7b8eb8fa411be5","target_id":"85b98582c8f0a740","pdn_size":"519444","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"85b98582c8f0a740","target_id":"bc7b8eb8fa411be5","pdn_size":"510796","ip":"52.172.34.189","latitude":13.08784008026123,"longitude":80.27847290039062},{"connection_id":"b5725bac875c40b5","target_id":"2249dc755602301c","pdn_size":"490304","ip":"52.172.34.189","latitude":13.08784008026123,"longitude":80.27847290039062},{"connection_id":"b11795dde5629317","target_id":"1bcc9d89cf484ef8","pdn_size":"478084","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"7c2aa2762580d8ac","target_id":"6b02ea0768127139","pdn_size":"424692","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"ec26ccdce7a72dd1","target_id":"4e658a14b1c9937a","pdn_size":"414540","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"1cf3b8af74b812aa","target_id":"927e5be51b4beeff","pdn_size":"401380","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"720a5a9c95ba9d91","target_id":"569b5bf8267119b8","pdn_size":"385776","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"18ef5b43c05610da","target_id":"b06f5e22437ffb58","pdn_size":"337648","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"ede8ea27c31e5009","target_id":"99ed270c843c858f","pdn_size":"311328","ip":"52.172.34.189","latitude":13.08784008026123,"longitude":80.27847290039062},{"connection_id":"1cf3b8af74b812aa","target_id":"5b69ef2f9970d6ca","pdn_size":"299484","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"f57469f555cf19de","target_id":"ddf17978d120902f","pdn_size":"289708","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"ddf17978d120902f","target_id":"f57469f555cf19de","pdn_size":"254928","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664}],
         peerListConnected: [],
       }
     },
     mounted() {
       this.playerInit()
       setInterval(() => {
-        axios.get(`https://api.teleport.media/demo/peerconnectionstat?apiKey=${KEY_TOKEN}`)
+        axios.get(`https://api.teleport.media/demo/peerconnectionstat?apiKey=${process.env.VUE_APP_API_KEY}`)
           .then(({data}) => {
             if (!isEqual(this.peerList, data.result)) {
               this.peerList = data.result
@@ -167,14 +170,18 @@
       playerInit() {
         let tlprt;
         let STREAM_URL = "https://stream.teleport.media/hls/video.m3u8";
-        let API_KEY = KEY_TOKEN;
+        let API_KEY = process.env.VUE_APP_API_KEY;
         let initApp = () => {
           let hls = new Hls();
           let video = document.getElementById('video');
           hls.loadSource(STREAM_URL);
           hls.attachMedia(video);
           hls.on(Hls.Events.MANIFEST_PARSED, function () {
-            video.play();
+            try {
+              video.play();
+            } catch(error) {
+              console.log(error)
+            }
           });
           teleport.initialize({
             apiKey: API_KEY,
