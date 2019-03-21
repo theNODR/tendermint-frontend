@@ -108,6 +108,7 @@
     .table { margin: 0; padding: .75rem 20px; }
     .map { margin: 50px 0; }
     .layout { display: flex; flex-direction: column; }
+    .indicators__item__label { font-size: .6rem; }
     .indicators__item__value { font-size: calc(6px + 3vw); font-weight: 400; }
     .table--thead { padding: .75rem 20px; background-color: #F9FAFB; text-transform: uppercase; font-size: .75rem; color: rgba(0,0,0,.5); letter-spacing: .15em; padding-top: .75rem; padding-bottom: .75rem; }
   }
@@ -129,7 +130,7 @@
         statDetails: [],
         tlprt: null,
         connectionId: null,
-        peerList: [],//[{"connection_id":"e69bab60f04d4a47","target_id":"79fc7aee7258781a","pdn_size":"8114268","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"3dbb29a9e274ac2c","target_id":"b187bd6a927da948","pdn_size":"4175480","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"de0caf527c631414","target_id":"9c2f4480956dd562","pdn_size":"3324404","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"5ce037985ee0b8d8","target_id":"78cfc78c9b0c7ffa","pdn_size":"2593836","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"1b76516507011686","target_id":"5711487e1c234a1e","pdn_size":"2576916","ip":"52.172.34.189","latitude":13.08784008026123,"longitude":80.27847290039062},{"connection_id":"c4e22f6ee7adbfa7","target_id":"6627d0704c091b47","pdn_size":"2445316","ip":"52.172.34.189","latitude":13.08784008026123,"longitude":80.27847290039062},{"connection_id":"9c2f4480956dd562","target_id":"de0caf527c631414","pdn_size":"2289840","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"a3c4bd2eb2c5f61d","target_id":"bc7b8eb8fa411be5","pdn_size":"1980768","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"9ac24a5676914c37","target_id":"e676f8512ee065b0","pdn_size":"1680908","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"22805f0b9fa0e2e5","target_id":"93ec0cc18f564117","pdn_size":"1650076","ip":"52.172.34.189","latitude":13.08784008026123,"longitude":80.27847290039062},{"connection_id":"ef1b517106b37fe7","target_id":"186cc3b51056802c","pdn_size":"1562468","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"da03b0e019466627","target_id":"e676f8512ee065b0","pdn_size":"1432560","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"548671e2fba48d98","target_id":"78cfc78c9b0c7ffa","pdn_size":"1414512","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"f57469f555cf19de","target_id":"c956728b5c600197","pdn_size":"1404172","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"9dbc30160d598139","target_id":"9d92eaa80cdb4897","pdn_size":"1391200","ip":"52.172.34.189","latitude":13.08784008026123,"longitude":80.27847290039062},{"connection_id":"91ac8705b41eff60","target_id":"951063cf060bda09","pdn_size":"1075736","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"78cfc78c9b0c7ffa","target_id":"9d4dcb2ed4b77a3b","pdn_size":"928156","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"6627d0704c091b47","target_id":"c4e22f6ee7adbfa7","pdn_size":"869124","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"a5f8720a4e52c629","target_id":"8d0267e00e26f680","pdn_size":"801256","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"e676f8512ee065b0","target_id":"da03b0e019466627","pdn_size":"745420","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"da2afd0f303e9a35","target_id":"f5e9301bbc97bb07","pdn_size":"737712","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"b187bd6a927da948","target_id":"8bfae3c89cc5926f","pdn_size":"631680","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"99ed270c843c858f","target_id":"ede8ea27c31e5009","pdn_size":"614384","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"bc7b8eb8fa411be5","target_id":"85b98582c8f0a740","pdn_size":"519444","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"85b98582c8f0a740","target_id":"bc7b8eb8fa411be5","pdn_size":"510796","ip":"52.172.34.189","latitude":13.08784008026123,"longitude":80.27847290039062},{"connection_id":"b5725bac875c40b5","target_id":"2249dc755602301c","pdn_size":"490304","ip":"52.172.34.189","latitude":13.08784008026123,"longitude":80.27847290039062},{"connection_id":"b11795dde5629317","target_id":"1bcc9d89cf484ef8","pdn_size":"478084","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"7c2aa2762580d8ac","target_id":"6b02ea0768127139","pdn_size":"424692","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"ec26ccdce7a72dd1","target_id":"4e658a14b1c9937a","pdn_size":"414540","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"1cf3b8af74b812aa","target_id":"927e5be51b4beeff","pdn_size":"401380","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"720a5a9c95ba9d91","target_id":"569b5bf8267119b8","pdn_size":"385776","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"18ef5b43c05610da","target_id":"b06f5e22437ffb58","pdn_size":"337648","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"ede8ea27c31e5009","target_id":"99ed270c843c858f","pdn_size":"311328","ip":"52.172.34.189","latitude":13.08784008026123,"longitude":80.27847290039062},{"connection_id":"1cf3b8af74b812aa","target_id":"5b69ef2f9970d6ca","pdn_size":"299484","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664},{"connection_id":"f57469f555cf19de","target_id":"ddf17978d120902f","pdn_size":"289708","ip":"46.146.226.236","latitude":58.01741027832031,"longitude":56.285518646240234},{"connection_id":"ddf17978d120902f","target_id":"f57469f555cf19de","pdn_size":"254928","ip":"52.229.169.61","latitude":22.285520553588867,"longitude":114.1576919555664}],
+        peerList: [],
         peerListConnected: [],
       }
     },
@@ -176,13 +177,20 @@
           let video = document.getElementById('video');
           hls.loadSource(STREAM_URL);
           hls.attachMedia(video);
-          hls.on(Hls.Events.MANIFEST_PARSED, function () {
-            try {
+          try {
+            hls.on(Hls.Events.MANIFEST_PARSED, function () {
               video.play();
-            } catch(error) {
-              console.log(error)
-            }
-          });
+            })
+          } catch(error) {
+            console.log(error)
+          }
+          // hls.on(Hls.Events.MANIFEST_PARSED, function () {
+          //   try {
+          //     video.play();
+          //   } catch(error) {
+          //     console.log(error)
+          //   }
+          // });
           teleport.initialize({
             apiKey: API_KEY,
             loader: {

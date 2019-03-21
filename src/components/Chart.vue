@@ -17,8 +17,8 @@
         let start = new Date()
         return {
           grid: {
-            // left: '5%',
-            // right: '5%',
+            left: '5%',
+            right: '5%',
             show: false,
             containLabel: false,
             borderColor: '#aaa',
@@ -48,6 +48,7 @@
               name: '123',
               type: 'line',
               symbol: 'none',
+              // smooth: true,
               lineStyle: {
                 color: '#0062FF',
                 width: 2,
@@ -60,6 +61,7 @@
             {
               name: '123',
               type: 'line',
+              // smooth: true,
               lineStyle: {
                 color: '#C43531',
                 width: 2,

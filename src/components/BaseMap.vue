@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="map" style="height: 300px; overflow: hidden;"></div>
+    <div id="map" style="height: 200px; overflow: hidden;"></div>
   </div>
 </template>
 
