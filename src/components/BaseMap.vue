@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="map" style="height: 200px; overflow: hidden;"></div>
+    <div id="map" style="height: 100vh; overflow: hidden;"></div>
   </div>
 </template>
 
@@ -56,7 +56,6 @@
           //   maxZoom: 18,
           //   id: 'osm',
           // }).addTo(this.map);
-          // markers.clearLayers();
           let icon = leaflet.icon({
             iconUrl: 'data:image/svg+xml;base64,' + btoa(iconSVG),
             iconSize: [19,19],
@@ -68,7 +67,7 @@
       }
     },
     mounted() {
-      this.map = leaflet.map('map').setView([51.5, -0.09], 2);
+      this.map = leaflet.map('map').setView([51.5, -0.09], 3);
       leaflet.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
         maxZoom: 18,
         id: 'osm',
