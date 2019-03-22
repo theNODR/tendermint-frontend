@@ -142,7 +142,10 @@
         connectionId: null,
         peerList: [],
         peerListConnected: [],
-        supports: {},
+        supports: {
+          mediaSourceExtensions: null,
+          hls: null,
+        },
       }
     },
     mounted() {
