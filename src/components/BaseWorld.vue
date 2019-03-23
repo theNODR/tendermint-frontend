@@ -52,7 +52,7 @@
             zlevel: 0,
             map: 'world',
             roam: true,
-            zoom: 3,
+            zoom: 1.5,
             silent: true,
             itemStyle: {
               normal: {
@@ -65,6 +65,7 @@
             type: 'scatter',
             zlevel: 1,
             coordinateSystem: 'geo',
+            silent: true,
             data: uniqBy(this.data, peer => {
               return `${peer.latitude}, ${peer.longitude}`
             }).map(peer => {
@@ -73,6 +74,7 @@
           }, {
             type: 'lines',
             zlevel: 2,
+            silent: true,
             coordinateSystem: 'geo',
             lineStyle: {
               normal: {
