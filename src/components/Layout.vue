@@ -254,7 +254,7 @@
               this.peerList = data.result
             }
           })
-      }, 1000)
+      }, 5000)
     },
     computed: {
       graphTable() {
