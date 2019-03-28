@@ -49,7 +49,6 @@
           backgroundColor: '#404a59',
           geo: {
             type: 'map',
-            zlevel: 0,
             map: 'world',
             roam: true,
             zoom: 1.5,
@@ -63,9 +62,12 @@
           },
           series: [{
             type: 'scatter',
-            zlevel: 1,
             coordinateSystem: 'geo',
             silent: true,
+            itemStyle: {
+              color: 'red',
+              opacity: 1,
+            },
             data: uniqBy(this.data, peer => {
               return `${peer.latitude}, ${peer.longitude}`
             }).map(peer => {
@@ -73,20 +75,21 @@
             })
           }, {
             type: 'lines',
-            zlevel: 2,
+            zlevel: 1,
             silent: true,
             coordinateSystem: 'geo',
             lineStyle: {
               normal: {
                 color: 'red',
-                opacity: 0,
+                opacity: .05,
                 curveness: .3,
               },
             },
             effect: {
               show: true,
               period: 7,
-              trailLength: 0.1,
+              trailLength: 0,
+              symbol: 'circle',
               symbolSize: 3,
             },
             blendMode: 'lighter',
