@@ -11,6 +11,10 @@
               <source id="video-source" type="application/x-mpegURL">
             </video>
           </div>
+          <!-- <div>
+            <div>HLS {{supports.hls}}</div>
+            <div>MSE {{supports.mediaSourceExtensions}}</div>
+          </div> -->
           <div v-if="supports.mediaSourceExtensions" class="indicators">
             <div class="indicators__item">
               <div class="indicators__item__label">
@@ -235,17 +239,18 @@
       }
     },
     mounted() {
+      this.peerList = process.env.VUE_APP_API_RESPONSE ? JSON.parse(process.env.VUE_APP_API_RESPONSE).result : []
       this.supports.hls = document.getElementById('video').canPlayType('application/vnd.apple.mpegURL') ? true : false
       this.supports.mediaSourceExtensions = window.MediaSource ? true : false
-      if (this.supports.hls) {
-        document.getElementById('video-source').src = "https://stream.teleport.media/hls/video.m3u8"
-      } else {
+      if (this.supports.mediaSourceExtensions) {
         this.playerInit()
+      } else {
+        document.getElementById('video-source').src = "https://stream.teleport.media/hls/video.m3u8"
       }
       setInterval(() => {
         axios.get(`https://api.teleport.media/demo/peerconnectionstat?apiKey=${process.env.VUE_APP_API_KEY}`)
           .then(({data}) => {
-            if (!isEqual(this.peerList, data.result)) {
+            if (!isEqual(this.peerList, data.result) && !process.env.VUE_APP_API_RESPONSE) {
               this.peerList = data.result
             }
           })

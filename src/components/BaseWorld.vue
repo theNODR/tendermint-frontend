@@ -82,6 +82,7 @@
               normal: {
                 color: 'red',
                 opacity: .05,
+                width: 1,
                 curveness: .3,
               },
             },
@@ -92,7 +93,7 @@
               symbol: 'circle',
               symbolSize: 3,
             },
-            blendMode: 'lighter',
+            // blendMode: 'lighter',
             data: this.lineList,
           }],
         }
