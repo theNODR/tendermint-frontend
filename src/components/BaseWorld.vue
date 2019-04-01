@@ -51,7 +51,8 @@
             type: 'map',
             map: 'world',
             roam: true,
-            zoom: 1.5,
+            zoom: window.innerWidth < 500 ? 3 : 1.5,
+            top: 300,
             silent: true,
             itemStyle: {
               normal: {
