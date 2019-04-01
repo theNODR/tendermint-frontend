@@ -1,15 +1,23 @@
 <template>
   <div>
-    <div class="background">
+    <div class="layout">
+      <div class="header">
+        <app-header/>
+      </div>
+      <div v-show="$route.path.match('stats')" class="player">
+        <app-player :statDetails="statDetails"/>
+      </div>
       <keep-alive>
-        <router-view :data="peerList" :statDetails="statDetails"/>
+        <router-view :data="peerList" :statDetails="statDetails"></router-view>
       </keep-alive>
     </div>
   </div>
 </template>
 
 <style scoped>
-  .background { background-color: #3DBD29; width: 100vw; height: 100vh; overflow-y: scroll; }
+  .layout { background-color: #3DBD29; width: 100vw; height: 100vh; overflow-y: scroll; }
+  .header { width: 500px; max-width: 500px; width: 100%; z-index: 100; margin: 0 auto; position: relative; }
+  .player { width: 500px; max-width: 500px; width: 100%; margin: 0 auto; }
 </style>
 
 
@@ -17,8 +25,11 @@
   import { cloneDeep, groupBy, map, sortBy, reverse, isEqual, uniq, uniqBy, } from 'lodash'
   import axios from 'axios'
   import { formatBytes } from '@/shared'
+  import AppPlayer from '@/components/AppPlayer'
+  import AppHeader from '@/components/AppHeader'
 
   export default {
+    components: { AppPlayer, AppHeader, },
     data: function() {
       return {
         statDetails: [],

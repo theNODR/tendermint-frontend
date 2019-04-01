@@ -1,19 +1,13 @@
 <template>
   <div>
     <div class="layout">
-      <div class="header">
-        <app-header/>
-        <app-player :statDetails="statDetails"/>
-      </div>
-    </div>
-    <div>
+      Stats
     </div>
   </div>
 </template>
 
 <style scoped>
-  .layout { display: flex; justify-content: center; }
-  .header { width: 500px; max-width: 500px; width: 100%; }
+  .layout { margin: 0 auto; max-width: 500px; width: 100%; padding: 0 20px; color: white; }
 </style>
 
 
