@@ -8,4 +8,14 @@ export const store = new Vuex.Store({
   state: {
     background: '#fff',
   },
+  mutations: {
+    backgroundChange({state}, color) {
+      state.background = color
+    },
+  },
+  actions: {
+    backgroundChange({commit}, color) {
+      commit('backgroundChange', color)
+    },
+  },
 })

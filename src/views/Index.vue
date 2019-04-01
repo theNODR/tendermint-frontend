@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="layout">
+    <div class="layout" :style="{backgroundColor: $store.state.background}">
       <div class="header">
         <app-header/>
       </div>
-      <div v-show="$route.path.match('stats')" class="player">
+      <div class="player" v-show="$route.path.match('stats')">
         <app-player :statDetails="statDetails"/>
       </div>
       <keep-alive>
@@ -15,7 +15,7 @@
 </template>
 
 <style scoped>
-  .layout { background-color: #3DBD29; width: 100vw; height: 100vh; overflow-y: scroll; }
+  .layout { width: 100vw; height: 100vh; overflow-y: scroll; }
   .header { width: 500px; max-width: 500px; width: 100%; z-index: 100; margin: 0 auto; position: relative; }
   .player { width: 500px; max-width: 500px; width: 100%; margin: 0 auto; }
 </style>

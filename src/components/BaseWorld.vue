@@ -52,7 +52,7 @@
             map: 'world',
             roam: true,
             zoom: window.innerWidth < 500 ? 3 : 1.5,
-            top: 300,
+            top: 320,
             silent: true,
             itemStyle: {
               normal: {
