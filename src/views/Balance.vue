@@ -9,13 +9,13 @@
         <div class="label">Total Balance</div>
       </div>
     </div>
-    <div class="article-container">
-      <div v-for="article in articleList" :key="article.title">
-        <a :href="article.link">
-          <div class="article" :style="{backgroundImage: `url(${article.thumbnail})`}">
+    <div class="article-wrapper" v-if="articleList && articleList.length > 0">
+      <div class="article-container">
+        <div class="article" v-for="article in articleList" :key="article.title" :style="{backgroundImage: `url(${article.thumbnail})`}">
+          <a :href="article.link">
             <div class="caption">{{article.title}}</div>
-          </div>
-        </a>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -27,8 +27,10 @@
   .indicator { font-size: 4rem; font-weight: 600; display: flex; line-height: .8; }
   .symbol { margin: 0 5px; }
   .label { font-size: 1.25rem; margin: 10px 0; font-weight: 500; }
-  .article-container { margin: 0 auto 20px; max-width: 500px; width: 100%; padding: 0 10px; }
-  .article { height: 100px; background-size: cover; background-position-y: center; position: relative; margin-bottom: 10px; border-radius: 5px; }
+  .article-wrapper { padding: 10px; }
+  .article-container { background: white; margin: 0 auto 20px; max-width: 500px; width: 100%; padding: 10px; border-radius: 10px; }
+  .article { display: block; height: 100px; background-size: cover; background-position-y: center; position: relative; margin-bottom: 10px; border-radius: 5px; }
+  .article:last-child { margin-bottom: 0; }
   .caption { position: absolute; bottom: 0; background-color: rgba(0,0,0,.5); left: 0; right: 0; color: white; padding: 5px 10px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; }
 </style>
 

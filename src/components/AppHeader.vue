@@ -24,6 +24,6 @@
   .app-header { padding: 50px 20px 20px; }
   .header { display: flex; align-items: center; justify-content: space-between; }
   .navigation { text-transform: uppercase; font-weight: 700; color: white; letter-spacing: .1em; display: flex; justify-content: space-between; margin: 50px 0 0; }
-  .navigation-item { padding-bottom: 2px; }
+  .navigation-item { padding-bottom: 2px; cursor: pointer; }
   .router-link-active { box-shadow: 0 2px 0 0 white; }
 </style>
