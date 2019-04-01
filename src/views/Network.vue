@@ -12,11 +12,13 @@
 
 
 <script>
-  import AppHeader from '@/components/AppHeader'
   import BaseWorld from '@/components/BaseWorld'
 
   export default {
-    components: { AppHeader, BaseWorld, },
+    components: { BaseWorld, },
     props: ['data',],
+    activated() {
+      this.$store.dispatch('backgroundChange', '#404A58')
+    },
   }
 </script>

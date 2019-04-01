@@ -15,7 +15,7 @@
 </template>
 
 <style scoped>
-  .layout { width: 100vw; height: 100vh; overflow-y: scroll; }
+  .layout { width: 100vw; height: 100vh; overflow-y: scroll; transition: background-color .5s; }
   .header { width: 500px; max-width: 500px; width: 100%; z-index: 100; margin: 0 auto; position: relative; }
   .player { width: 500px; max-width: 500px; width: 100%; margin: 0 auto; }
 </style>

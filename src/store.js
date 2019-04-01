@@ -9,7 +9,7 @@ export const store = new Vuex.Store({
     background: '#fff',
   },
   mutations: {
-    backgroundChange({state}, color) {
+    backgroundChange(state, color) {
       state.background = color
     },
   },
