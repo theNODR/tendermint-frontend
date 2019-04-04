@@ -14,14 +14,6 @@
     props: ['data',],
     components: {'chart': ECharts, },
     computed: {
-      // markerCount() {
-      //   return uniqBy(this.data, peer => {
-      //     return `${peer.latitude}, ${peer.longitude}`
-      //   }).length
-      // },
-      // connectionCount() {
-      //   return uniqBy(this.data, 'connection_id')
-      // },
       markerList() {
         return uniqBy(this.data, peer => {
           return `${peer.latitude}, ${peer.longitude}`
@@ -34,7 +26,7 @@
       },
       lineList() {
         let result = []
-        this.data.forEach(connection => {
+        this.data && this.data.forEach(connection => {
           let target = find(this.data, {'connection_id': connection.target_id})
           if (!target) return
           result.push([

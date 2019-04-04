@@ -1,8 +1,11 @@
 <template>
   <div>
     <div class="layout">
-      <div class="header">Download Speed: {{statDetails && statDetails[0] && statDetails[statDetails.length-1].totals.cdn.speed}} Mbps</div>
-      <speed-chart :data="statDetails"/>
+      <pre>
+        {{statDetails && statDetails[statDetails.length-1]}}
+      </pre>
+      <!-- <div class="header">Download Speed: {{statDetails && statDetails[0] && statDetails[statDetails.length-1].totals.cdn.speed}} Mbps</div> -->
+      <!-- <speed-chart :data="statDetails"/> -->
     </div>
   </div>
 </template>
@@ -16,7 +19,7 @@
   import SpeedChart from '@/components/SpeedChart'
 
   export default {
-    props: ['statDetails',],
+    props: ['statDetails', 'mediaSourceExtensions',],
     components: { SpeedChart, },
     activated() {
       this.$store.dispatch('backgroundChange', '#0062FF')
