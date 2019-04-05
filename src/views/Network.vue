@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="map">
-      <base-world :data="data"/>
+      <base-world :data="peerList"/>
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@
 
   export default {
     components: { BaseWorld, },
-    props: ['data',],
+    props: ['peerList',],
     activated() {
       this.$store.dispatch('backgroundChange', '#404A58')
     },

@@ -30,7 +30,7 @@
           </div>
         </div>
       </div>
-      <router-view/>
+      <router-view :peerList="peerList"/>
     </div>
   </div>
 </template>
@@ -62,6 +62,7 @@
         onLedgerPublicEventList: [],
         onSegmentUploadedList: [],
         mse: null,
+        peerList: [],
       }
     },
     mounted() {
@@ -72,6 +73,18 @@
         document.getElementById('video-source').src = "https://stream.teleport.media/hls/video.m3u8"
       }
       this.$store.dispatch('backgroundChange', '#3DBD29')
+      setInterval(() => {
+        axios.get(`https://api.teleport.media/demo/peerconnectionstat?apiKey=${process.env.VUE_APP_API_KEY}`)
+          .then(({data}) => {
+            if (process.env.VUE_APP_API_RESPONSE) {
+              this.peerList = JSON.parse(process.env.VUE_APP_API_RESPONSE).result
+              return
+            }
+            if (!isEqual(this.peerList, data.result)) {
+              this.peerList = data.result
+            }
+          })
+      }, 3000)
     },
     computed: {
       ledgerBalanceIncomeList() {
