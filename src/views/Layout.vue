@@ -6,11 +6,9 @@
       </div>
       <div v-show="$route.path.match('account')">
         <div class="center padding">
-          <!-- <div>ID: {{tlprt && tlprt.connectionId}}</div>
-          <div>Balance: {{ledgerBalanceIncomeCurrent.toFixed(2)}}</div> -->
           <div class="total">      
             <div class="indicator">
-              {{ledgerBalanceIncomeCurrent.toFixed(2)}}
+              {{balance && balance.toFixed(2)}}
               <svg class="symbol" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18ZM6.60376 8.10347L6.64518 13.7873H5.30329H4.72346V4.21282H5.5932L11.5323 10.0036L11.4909 4.21282H13.4043V13.7873H12.5346L6.60376 8.10347Z" fill="white"/> </svg>
             </div>
             <div class="label">Total Balance</div>
@@ -19,16 +17,24 @@
         <div class="center" style="padding: 0 10px;">
           <app-player :show="mse" :indicator="tlprt && [tlprt.getStatDetails.totals.cdn.size, tlprt.getStatDetails.totals.upload.size]"/>
         </div>
-        <!-- <video id="video" autoplay controls muted playsinline style="width: 100%; height: auto;">
-          <source id="video-source" type="application/x-mpegURL">
-        </video> -->
         <div class="center padding">
+          <h2>Transactions</h2>
+          <div class="transaction" v-for="(income, index) in unconfirmedIncomeList" :key="index">
+            <div>{{income.cid}}</div>
+            <div style="display: flex; align-items: center;">
+              <span style="padding-right: 10px;">{{income.tokens.toFixed(4)}}</span>
+              <svg v-if="find(incomeCHannelCloseList, {'address': income.address})" fill="white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.393 7.5l-5.643 5.784-2.644-2.506-1.856 1.858 4.5 4.364 7.5-7.643-1.857-1.857z"/></svg>
+              <svg v-else xmlns="http://www.w3.org/2000/svg" fill="white" width="20" height="20" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12z"/></svg>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="center padding">
           <h2>Transactions</h2>
           <div class="transaction" v-for="segment in onSegmentUploadedList" :key="segment.result.timestamp">
             <div>{{segment.result.targetId}}</div>
             <div>{{formatBytes(segment.result.size, 0)}}</div>
           </div>
-        </div>
+        </div> -->
       </div>
       <router-view :peerList="peerList"/>
     </div>
@@ -48,7 +54,7 @@
 </style>
 
 <script>
-  import { cloneDeep, groupBy, map, sortBy, reverse, isEqual, uniq, uniqBy, } from 'lodash'
+  import { cloneDeep, groupBy, map, sortBy, reverse, isEqual, uniq, uniqBy, find, } from 'lodash'
   import axios from 'axios'
   import { formatBytes } from '@/shared'
   import AppPlayer from '@/components/AppPlayer'
@@ -84,7 +90,7 @@
               this.peerList = data.result
             }
           })
-      }, 3000)
+      }, 1000)
     },
     computed: {
       ledgerBalanceIncomeList() {
@@ -96,10 +102,26 @@
         let ledgerBalanceList = this.onLedgerPublicEventList.filter(x => x.type == 'ledgerBalanceIncome')
         let last = ledgerBalanceList[ledgerBalanceList.length - 1]
         return (last && last.balance) || 0
-      }
+      },
+      confirmedIncomeList() {
+        return this.unconfirmedIncomeList.filter(income => find(this.incomeCHannelCloseList, {'address': income.address}))
+      },
+      balance() {
+        return this.confirmedIncomeList.reduce((acc, val) => acc + val.tokens, 0)
+      },
+      unconfirmedIncomeList() {
+        let list = this.onLedgerPublicEventList.filter(x => x.type == 'unconfirmedIncome')
+        return reverse(list)
+      },
+      incomeCHannelCloseList() {
+        let list = this.onLedgerPublicEventList.filter(x => x.type == 'incomeCHannelClose')
+        return list        
+      },
     },
     methods: {
+      find,
       formatBytes,
+      reverse,
       peeringModeChange() {
         if (window.tlprt) {
           window.tlprt.peeringMode = 1

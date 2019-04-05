@@ -70,7 +70,7 @@
               this.peerList = data.result
             }
           })
-      }, 5000)
+      }, 1000)
     },
     computed: {
       graphTable() {
