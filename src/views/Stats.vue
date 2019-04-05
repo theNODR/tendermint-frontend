@@ -1,28 +1,11 @@
 <template>
   <div>
-    <div class="layout">
-      <pre>
-        {{statDetails && statDetails[statDetails.length-1]}}
-      </pre>
-      <!-- <div class="header">Download Speed: {{statDetails && statDetails[0] && statDetails[statDetails.length-1].totals.cdn.speed}} Mbps</div> -->
-      <!-- <speed-chart :data="statDetails"/> -->
+    <div class="center">
+      Stats
     </div>
   </div>
 </template>
 
 <style scoped>
-  .layout { margin: 0 auto; max-width: 500px; width: 100%; padding: 0 20px; color: white; }
-  .header { font-size: 1.25rem; font-weight: 500; margin-top: 50px; }
+  .center { margin: 20px auto; max-width: 550px; width: 100%; padding: 0 20px; }
 </style>
-
-<script>
-  import SpeedChart from '@/components/SpeedChart'
-
-  export default {
-    props: ['statDetails', 'mediaSourceExtensions',],
-    components: { SpeedChart, },
-    activated() {
-      this.$store.dispatch('backgroundChange', '#0062FF')
-    },
-  }
-</script>

@@ -1,18 +1,50 @@
 <template>
   <div>
-    <div>Balance: {{ledgerBalanceIncomeCurrent.toFixed(2)}}</div>
-    <video id="video" autoplay controls muted playsinline style="width: 500px; height: auto;">
-      <source id="video-source" type="application/x-mpegURL">
-    </video>
-    <h2>Transactions</h2>
-    <div v-for="segment in onSegmentUploadedList" :key="segment.result.timestamp">
-      {{segment.result.targetId}}, {{segment.result.size}}
+    <div class="layout" :style="{backgroundColor: $store.state.background}">
+      <div class="header center padding">
+        <app-header/>
+      </div>
+      <div v-show="$route.path.match('account')">
+        <div class="center padding">
+          <!-- <div>ID: {{tlprt && tlprt.connectionId}}</div>
+          <div>Balance: {{ledgerBalanceIncomeCurrent.toFixed(2)}}</div> -->
+          <div class="total">      
+            <div class="indicator">
+              {{ledgerBalanceIncomeCurrent.toFixed(2)}}
+              <svg class="symbol" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18ZM6.60376 8.10347L6.64518 13.7873H5.30329H4.72346V4.21282H5.5932L11.5323 10.0036L11.4909 4.21282H13.4043V13.7873H12.5346L6.60376 8.10347Z" fill="white"/> </svg>
+            </div>
+            <div class="label">Total Balance</div>
+          </div>
+        </div>
+        <div class="center" style="padding: 0 10px;">
+          <app-player :show="mse" :indicator="tlprt && [tlprt.getStatDetails.totals.cdn.size, tlprt.getStatDetails.totals.upload.size]"/>
+        </div>
+        <!-- <video id="video" autoplay controls muted playsinline style="width: 100%; height: auto;">
+          <source id="video-source" type="application/x-mpegURL">
+        </video> -->
+        <div class="center padding">
+          <h2>Transactions</h2>
+          <div class="transaction" v-for="segment in onSegmentUploadedList" :key="segment.result.timestamp">
+            <div>{{segment.result.targetId}}</div>
+            <div>{{formatBytes(segment.result.size, 0)}}</div>
+          </div>
+        </div>
+      </div>
+      <router-view/>
     </div>
   </div>
 </template>
 
 <style scoped>
-
+  .layout { width: 100vw; height: 100vh; overflow-y: scroll; }
+  .header { z-index: 100; position: relative; }
+  .center { margin: 20px auto; max-width: 500px; width: 100%; }
+  .padding { padding: 0 10px; }
+  .total { margin: 20px auto; max-width: 500px; width: 100%; color: white; }
+  .indicator { font-size: 4rem; font-weight: 600; display: flex; line-height: .8; }
+  .symbol { margin: 0 5px; }
+  .label { font-size: 1.25rem; margin: 10px 0; font-weight: 500; }
+  .transaction { margin: 10px 0; display: flex; justify-content: space-between; font-size: 1.25rem; }
 </style>
 
 <script>
@@ -29,19 +61,23 @@
         tlprt: null,
         onLedgerPublicEventList: [],
         onSegmentUploadedList: [],
+        mse: null,
       }
     },
     mounted() {
-      let mse = window.MediaSource ? true : false
-      if (mse) {
+      this.mse = window.MediaSource ? true : false
+      if (this.mse) {
         this.playerInit()
       } else {
         document.getElementById('video-source').src = "https://stream.teleport.media/hls/video.m3u8"
       }
+      this.$store.dispatch('backgroundChange', '#3DBD29')
     },
     computed: {
       ledgerBalanceIncomeList() {
-        return this.onLedgerPublicEventList.filter(x => x.type == 'ledgerBalanceIncome').map(x => x.balance)
+        return this.onLedgerPublicEventList.filter(x => {
+          return x.type == 'ledgerBalanceIncome' && x.balance > 0
+        }).map(x => x.balance)
       },
       ledgerBalanceIncomeCurrent() {
         let ledgerBalanceList = this.onLedgerPublicEventList.filter(x => x.type == 'ledgerBalanceIncome')
@@ -50,6 +86,7 @@
       }
     },
     methods: {
+      formatBytes,
       peeringModeChange() {
         if (window.tlprt) {
           window.tlprt.peeringMode = 1

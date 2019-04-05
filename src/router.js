@@ -5,7 +5,7 @@ import Account from './views/Account.vue'
 import Stats from './views/Stats.vue'
 import Network from './views/Network.vue'
 import Settings from './views/Settings.vue'
-import New from './views/New.vue'
+import Layout from './views/Layout.vue'
 
 Vue.use(Router)
 
@@ -13,35 +13,35 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    {
-      path: '/',
-      component: New,
-    },
     // {
     //   path: '/',
-    //   component: Index,
-    //   children: [
-    //     {
-    //       path: '',
-    //       redirect: '/account',
-    //     },
-    //     {
-    //       path: 'stats',
-    //       component: Stats,
-    //     },
-    //     {
-    //       path: 'account',
-    //       component: Account,
-    //     },
-    //     {
-    //       path: 'network',
-    //       component: Network,
-    //     },
-    //     {
-    //       path: 'settings',
-    //       component: Settings,
-    //     },
-    //   ],
+    //   component: New,
     // },
+    {
+      path: '/',
+      component: Layout,
+      children: [
+        {
+          path: '',
+          redirect: '/account',
+        },
+        {
+          path: 'account',
+          component: Account,
+        },
+        {
+          path: 'stats',
+          component: Stats,
+        },
+        {
+          path: 'network',
+          component: Network,
+        },
+        {
+          path: 'settings',
+          component: Settings,
+        },
+      ],
+    },
   ],
 })
