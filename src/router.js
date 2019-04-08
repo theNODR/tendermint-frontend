@@ -6,6 +6,7 @@ import Stats from './views/Stats.vue'
 import Network from './views/Network.vue'
 import Settings from './views/Settings.vue'
 import Layout from './views/Layout.vue'
+import L from './views/L.vue'
 
 Vue.use(Router)
 
@@ -15,11 +16,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Layout,
+      component: L,
       children: [
         {
           path: '',
-          redirect: '/account',
+          component: Account,
         },
         {
           path: 'account',

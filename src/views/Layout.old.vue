@@ -1,38 +1,38 @@
 <template>
   <div>
-    <div class="layout">
-      <div class="stars1"></div>
-      <div class="stars2"></div>
-      <div class="stars3"></div>
-      <div class="total-container" v-if="loaded">
-        <div class="total">
-          <div class="indicator">
-            {{balance && balance.toFixed(2)}}
-            <svg class="symbol" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18ZM6.60376 8.10347L6.64518 13.7873H5.30329H4.72346V4.21282H5.5932L11.5323 10.0036L11.4909 4.21282H13.4043V13.7873H12.5346L6.60376 8.10347Z" fill="white"/> </svg>
-          </div>
-          <div class="label">Total Balance</div>
-        </div>
+    <div class="layout" style="background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%)">
+      <div id="stars"></div>
+      <div id="stars2"></div>
+      <div id="stars3"></div>
+      <div class="header center padding">
+        <app-header/>
       </div>
-      <div class="player__container">
-        <div :class="['player', {'player--loaded': loaded}]">
+      <div v-show="$route.path.match('account')">
+        <div class="center padding">
+          <div class="total">      
+            <div class="indicator">
+              {{balance && balance.toFixed(2)}}
+              <svg class="symbol" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18ZM6.60376 8.10347L6.64518 13.7873H5.30329H4.72346V4.21282H5.5932L11.5323 10.0036L11.4909 4.21282H13.4043V13.7873H12.5346L6.60376 8.10347Z" fill="white"/> </svg>
+            </div>
+            <div class="label">Total Balance</div>
+          </div>
+        </div>
+        <div class="center" style="padding: 0 10px;">
           <app-player :show="mse" :indicator="tlprt && [tlprt.getStatDetails.totals.cdn.size, tlprt.getStatDetails.totals.upload.size]"/>
         </div>
-      </div>
-      <div class="splash">
-        <div class="splash__center">
-          <svg :class="['splash__logo', {'splash__logo--loaded': loaded}]" width="119" height="25" viewBox="0 0 119 25" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M113.457 24.3418L108.39 16.6897H105.226V24.3418H100.49V0.268799H107.791C110.769 0.268799 113.085 0.992644 114.74 2.44033C116.394 3.88803 117.201 5.87343 117.201 8.37586C117.201 9.86492 116.89 11.2506 116.27 12.5535C115.65 13.8564 114.698 14.8698 113.416 15.6143L119 24.3418H113.457ZM105.206 12.0985H108.577C109.859 12.0985 110.81 11.7262 111.389 10.961C111.968 10.2165 112.279 9.38925 112.279 8.52063C112.279 7.65202 112.03 6.82477 111.534 6.0182C111.038 5.21163 110.066 4.81868 108.618 4.81868H105.226V12.0985H105.206Z" fill="white"/> <path d="M4.79806 24.4246L4.69465 10.1338L19.5025 24.4246H21.674V0.351562H16.8966L17 14.9112L2.17154 0.351562H0V24.4246H1.44769H4.79806Z" fill="white"/> <path d="M88.5775 6.65932C87.6675 4.77732 86.2198 3.22622 84.2344 2.04739C82.249 0.868551 79.7259 0.268799 76.6444 0.268799H67.1724V4.81868H69.4473V19.7713H67.1724V24.3211L77.8232 24.3625C80.0361 24.3625 82.0422 23.8868 83.8828 22.9355C85.7235 21.9842 87.1919 20.6192 88.288 18.8613C89.3841 17.1034 89.9218 15.0559 89.9218 12.7396C89.9425 10.5681 89.4875 8.54132 88.5775 6.65932ZM82.8695 17.8479C81.4218 19.1095 79.4777 19.7506 77.0167 19.7506H74.204V4.798H78.0714C79.0021 4.798 80.0154 5.02549 81.0702 5.4598C82.1249 5.89411 83.0556 6.68 83.8415 7.81747C84.6274 8.95494 85.041 10.4854 85.041 12.388C85.041 14.7664 84.3172 16.5863 82.8695 17.8479Z" fill="white"/> <path d="M44.7534 24.6107C51.5494 24.6107 57.0587 19.1014 57.0587 12.3054C57.0587 5.5093 51.5494 0 44.7534 0C37.9573 0 32.448 5.5093 32.448 12.3054C32.448 19.1014 37.9573 24.6107 44.7534 24.6107Z" fill="white"/> </svg>
-          <transition name="fade">
-            <div v-if="!loaded" class="splash__text">app lets you share unused bandwidth of smart devices and get paid.</div>
-          </transition>
-          <transition name="fade">
-            <div v-if="!loaded">
-              <div class="splash__loading">
-                <div class="splash__loading__progress"></div>
-              </div>
+        <div class="center padding">
+          <h2>Transactions</h2>
+          <div class="transaction" v-for="(income, index) in unconfirmedIncomeList" :key="index">
+            <div>{{income.cid}}</div>
+            <div style="display: flex; align-items: center;">
+              <span style="padding-right: 10px;">{{income.tokens.toFixed(4)}}</span>
+              <svg v-if="find(incomeCHannelCloseList, {'address': income.address})" fill="white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.393 7.5l-5.643 5.784-2.644-2.506-1.856 1.858 4.5 4.364 7.5-7.643-1.857-1.857z"/></svg>
+              <svg v-else xmlns="http://www.w3.org/2000/svg" fill="white" width="20" height="20" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12z"/></svg>
             </div>
-          </transition>
+          </div>
         </div>
       </div>
+      <router-view :peerList="peerList"/>
     </div>
   </div>
 </template>
@@ -50,48 +50,27 @@
   $shadows-medium: multiple-box-shadow(200);
   $shadows-big: multiple-box-shadow(100);
     
-  .stars1 { width: 1px; height: 1px; background: transparent; overflow-y: hidden; box-shadow: $shadows-small; animation: animStar 50s linear infinite; }
-  .stars1:after { content: " "; position: absolute; top: 2000px; overflow-y: hidden; width: 1px; height: 1px; background: transparent; box-shadow: $shadows-small; }
-  .stars2 { width: 2px; height: 2px; background: transparent; overflow-y: hidden; box-shadow: $shadows-medium; animation: animStar 100s linear infinite; }
-  .stars2:after { content: " "; position: absolute; top: 2000px; overflow-y: hidden; width: 2px; height: 2px; background: transparent; box-shadow: $shadows-medium; }
-  .stars3 { width: 3px; height: 3px; background: transparent; overflow-y: hidden; box-shadow: $shadows-big; animation: animStar 150s linear infinite; }  
-  .stars3:after { content: " "; position: absolute; top: 2000px; overflow-y: hidden; width: 3px; height: 3px; background: transparent; box-shadow: $shadows-big; }
+  #stars { width: 1px; height: 1px; background: transparent; box-shadow: $shadows-small; animation: animStar 50s linear infinite; }
+  #stars:after { content: " "; position: absolute; top: 2000px; width: 1px; height: 1px; background: transparent; box-shadow: $shadows-small; }
+  #stars2 { width: 2px; height: 2px; background: transparent; box-shadow: $shadows-medium; animation: animStar 100s linear infinite; }
+  #stars2:after { content: " "; position: absolute; top: 2000px; width: 2px; height: 2px; background: transparent; box-shadow: $shadows-medium; }
+  #stars3 { width: 3px; height: 3px; background: transparent; box-shadow: $shadows-big; animation: animStar 150s linear infinite; }  
+  #stars3:after { content: " "; position: absolute; top: 2000px; width: 3px; height: 3px; background: transparent; box-shadow: $shadows-big; }
 
   @keyframes animStar {
     from { transform: translateY(0px); }
     to { transform: translateY(-2000px); }
   }
 
-  @keyframes progress {
-    0% { transform: translate(-100%); }
-    100% { transform: translateX(0); }
-  }
-
-  .layout { color: white; }
-
-  .fade-active-active, .fade-leave-active { transition: .5s all; }
-  .fade-enter { opacity: 0; }
-  .fade-enter-to { opacity: 1; }
-  .fade-leave { opacity: 1; }
-  .fade-leave-to { opacity: 0; }
-
-  .player__container { position: relative; top: 100px; display: flex; justify-content: center; padding: 10px; }
-  .player { max-width: 500px; width: 100%; opacity: 0; transition: 1s 1s all; transform: scale(.5); }
-  .player--loaded { opacity: 1; transform: scale(1); }
-  
-  .layout { width: 100vw; height: 100vh; overflow-y: scroll; position: relative; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); }
-  .splash { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; justify-content: center; align-items: flex-start; }
-  .splash__center { display: flex; flex-direction: column; align-items: center; }
-  .splash__logo { transform: translateY(35vh); transition: all 1s; }
-  .splash__logo--loaded { transform: translateY(5vh); }
-  .splash__text { font-family: 'Lato'; transform: translateY(38vh); max-width: 300px; text-align: center; font-size: 1.25rem; line-height: 1.5; }
-  .splash__loading { width: 100px; height: 10px; box-shadow: 0 0 0 1px inset white; overflow: hidden; position: relative; transform: translateY(45vh); border-radius: 1000px; }
-  .splash__loading__progress { width: 100%; height: 100%; background: white; border-radius: 1000px; animation: 40s progress ease-out forwards; }
-  .total-container { position: absolute; top: 100px; }
+  .layout { width: 100vw; height: 100vh; overflow-y: scroll; }
+  .header { z-index: 100; position: relative; }
+  .center { margin: 20px auto; max-width: 500px; width: 100%; }
+  .padding { padding: 0 10px; }
   .total { margin: 20px auto; max-width: 500px; width: 100%; color: white; }
   .indicator { font-size: 4rem; font-weight: 600; display: flex; line-height: .8; }
   .symbol { margin: 0 5px; }
   .label { font-size: 1.25rem; margin: 10px 0; font-weight: 500; }
+  .transaction { margin: 10px 0; display: flex; justify-content: space-between; font-size: 1.25rem; }
 </style>
 
 <script>
@@ -110,7 +89,6 @@
         onSegmentUploadedList: [],
         mse: null,
         peerList: [],
-        loaded: null,
       }
     },
     mounted() {
@@ -208,9 +186,6 @@
         .then((instance) => {
           console.log('Teleport initialized.')
           console.log('Instance', instance)
-          setTimeout(() => {
-            this.loaded = true
-          }, 1000)
           tlprt = instance;
           window.tlprt = instance;
           hls.loadSource(`https://cryptostream.teleport.media/hls/1/playlist.m3u8?k=${instance.publicKeyHash}`);

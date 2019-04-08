@@ -3,7 +3,3 @@
     <router-view/>
   </div>
 </template>
-
-<style>
-  body { color: white; }
-</style>
