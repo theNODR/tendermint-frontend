@@ -15,19 +15,20 @@
       </div>
       <div v-if="tlprt" class="indicators">
         <div>
-          <span>Download: {{tlprt && formatBytes(tlprt.getStatDetails.totals.cdn.size + tlprt.getStatDetails.totals.pdn.size)}}</span>
+          <span>Down: {{tlprt && formatBytes(tlprt.getStatDetails.totals.cdn.size + tlprt.getStatDetails.totals.pdn.size)}}</span>
           <i class="fas fa-cloud-download-alt"></i>
         </div>
         <div>
-          <span>Upload: {{tlprt && formatBytes(tlprt.getStatDetails.totals.upload.size)}}</span>
+          <span>Up: {{tlprt && formatBytes(tlprt.getStatDetails.totals.upload.size)}}</span>
           <i class="fas fa-cloud-upload-alt"></i>
         </div>
       </div>
-      <h2>
-        <span :class="['nav__item', {'nav__item--active': mode == 'transactions'}]" @click="mode = 'transactions'">Transactions</span>
-        <span :class="['nav__item', {'nav__item--active': mode == 'peers'}]" @click="mode = 'peers'">Peers</span>
-        <span :class="['nav__item', {'nav__item--active': mode == 'console'}]" @click="mode = 'console'">Console</span>
-      </h2>
+      <div class="nav">
+        <div :class="['nav__item', {'nav__item--active': mode == 'transactions'}]" @click="mode = 'transactions'">Transactions</div>
+        <div :class="['nav__item', {'nav__item--active': mode == 'peers'}]" @click="mode = 'peers'">Peers</div>
+        <div :class="['nav__item', {'nav__item--active': mode == 'console'}]" @click="mode = 'console'">Console</div>
+        <div :class="['nav__item', {'nav__item--active': mode == 'network'}]" @click="mode = 'network'">Network</div>
+      </div>
       <div v-if="mode == 'transactions'">
         <p v-if="unconfirmedIncomeList <= 0">There are no transactions yet.</p>
         <table v-if="unconfirmedIncomeList.length > 0">
@@ -70,9 +71,12 @@
         </table>
       </div>
       <div v-if="mode == 'console'" class="console">
-        <div class="console__item" v-for="(item, index) in reverse(console)" :key="index">
+        <div class="console__item" v-for="(item, index) in console" :key="index">
           {{item}}
         </div>
+      </div>
+      <div v-if="mode == 'network'">
+        <base-world :data="peerList" class="map"/>
       </div>
     </div>
   </div>
@@ -86,13 +90,15 @@
   table { border-collapse: separate; }
   thead tr th { text-align: left; }
   td, th { padding: 5px 10px 5px 0; vertical-align: top; }
+  .nav { font-size: 1.75rem; width: 100%; max-width: 500px; margin: 1em 0; font-weight: 600; display: flex; flex-wrap: wrap; }
   .im { font-size: 1em; }
   .fas { margin: 0 .25em; }
   .indicators { display: grid; grid-template-columns: 50% 50%; max-width: 500px; width: 100%; text-align: center; margin: 10px 0; }
-  .nav__item { margin-right: 1em; color: rgba(0,0,0,.25); cursor: pointer; }
+  .nav__item { margin: .5rem 1em .5rem 0; color: rgba(0,0,0,.25); cursor: pointer; display: inline-block; }
   .nav__item--active { color: black; }
   .console { background: black; color: white; font-family: 'Inconsolata', monospace; font-size: 1rem; padding: 5px; border-radius: 5px; }
   .console__item { margin-bottom: 1em; }
+  .map { height: 500px; border-radius: 5px; position: relative; }
 </style>
 
 <script>
@@ -101,9 +107,10 @@
   import { formatBytes } from '@/shared'
   import AppPlayer from '@/components/AppPlayer'
   import AppHeader from '@/components/AppHeader'
+  import BaseWorld from '@/components/BaseWorld'
 
   export default {
-    components: { AppPlayer, AppHeader, },
+    components: { AppPlayer, AppHeader, BaseWorld, },
     data: function() {
       return {
         tlprt: null,
@@ -118,8 +125,8 @@
       }
     },
     mounted() {
-      this.console.push('Loading...')
-      this.console.push('Reticulating splines...')
+      this.console.unshift('Loading...')
+      this.console.unshift('Reticulating splines...')
       this.mse = window.MediaSource ? true : false
       if (this.mse) {
         this.playerInit()
@@ -187,24 +194,24 @@
       },
       onLedgerPublicEvent(event) {
         console.log('onLedgerPublicEvent', event)
-        this.console.push(['onLedgerPublicEvent', event])
+        this.console.unshift(['onLedgerPublicEvent', event])
         this.onLedgerPublicEventList = [...this.onLedgerPublicEventList, event]
       },
       onSegmentUploaded(segment) {
         console.log(`onSegmentUploaded:`, segment);
-        this.console.push([`onSegmentUploaded:`, segment]);
+        this.console.unshift([`onSegmentUploaded:`, segment]);
         this.onSegmentUploadedList = [...this.onSegmentUploadedList, segment]
       },
       onPeerConnectionOpened(peerId) {
         console.log(`onPeerConnectionOpened: ${peerId}`)
-        this.console.push([`onPeerConnectionOpened: ${peerId}`])
+        this.console.unshift([`onPeerConnectionOpened: ${peerId}`])
         if (this.peerListConnected.indexOf(peerId) === -1) {
           this.peerListConnected.push(peerId);
         }
       },
       onPeerConnectionClosed(peerId) {
         console.log(`onPeerConnectionClosed: ${peerId}`)
-        this.console.push([`onPeerConnectionClosed: ${peerId}`])
+        this.console.unshift([`onPeerConnectionClosed: ${peerId}`])
         let index = this.peerListConnected.indexOf(peerId);
         if (index !== -1) {
           this.peerListConnected.splice(index, 1);
@@ -212,15 +219,15 @@
       },
       onSegmentLoaded(segment) {
         console.log(`onSegmentLoaded:`, segment)
-        this.console.push([`onSegmentLoaded:`, segment])
+        this.console.unshift([`onSegmentLoaded:`, segment])
       },
       onPeerInfo(e) {
         console.log('onPeerInfo', e)
-        this.console.push(['onPeerInfo', e])
+        this.console.unshift(['onPeerInfo', e])
       },
       onPeeringModeChanged(mode) {
         console.log(`onPeeringModeChanged: ${teleport.PeeringMode[mode]}`)
-        this.console.push([`onPeeringModeChanged: ${teleport.PeeringMode[mode]}`])
+        this.console.unshift([`onPeeringModeChanged: ${teleport.PeeringMode[mode]}`])
       },
       playerInit() {
         let tlprt;

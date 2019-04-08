@@ -1,6 +1,6 @@
 <template>
   <div style="height: 100%;">
-    <chart :options="options" :autoresize="true" style="height: 100%; width: 100%;"/>
+    <chart :options="options" :autoresize="true" style="width: 100%;"/>
   </div>
 </template>
 
@@ -44,7 +44,6 @@
             map: 'world',
             roam: true,
             zoom: window.innerWidth < 500 ? 3 : 1.5,
-            top: 320,
             silent: true,
             itemStyle: {
               normal: {
