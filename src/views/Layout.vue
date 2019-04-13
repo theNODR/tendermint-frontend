@@ -196,14 +196,14 @@
             }
           })
       }, 1000)
-      // const ledgerSocket = new WebSocket('wss://ledger-tendermint.nodr.io:2000')
-      // ledgerSocket.addEventListener('open', function (event) {
-      //     ledgerSocket.send('Hello Server!')
-      // })
+      const ledgerSocket = new WebSocket('ws://ledger-tendermint.nodr.io:2000')
+      ledgerSocket.addEventListener('open', function (event) {
+          ledgerSocket.send('Hello Server!')
+      })
 
-      // ledgerSocket.addEventListener('message', function (event) {
-      //     console.log('Message from server ', event.data)
-      // })
+      ledgerSocket.addEventListener('message', function (event) {
+          console.log('Message from server ', event.data)
+      })
     },
     computed: {
       peerListNow() {
